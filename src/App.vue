@@ -203,10 +203,13 @@ main {
   display: flex;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 920px) {
   h1 {
     font-size: 3rem;
   }
+}
+
+@media screen and (max-width: 600px) {
   h2 {
     font-size: 2rem;
   }

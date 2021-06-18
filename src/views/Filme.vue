@@ -13,7 +13,9 @@
             <h2>{{ filme.title }}</h2>
             <ul class="filme-info">
               <li class="generos">
-                <span v-for="(genero, index) in filme.genres" :key="index">{{ genero.name }}</span>
+                <span v-for="(genero, index) in filme.genres" :key="index">
+                  <router-link :to="{ name: 'categoria', params: { id: genero.id } }">{{ genero.name }}</router-link>
+                </span>
               </li>
               <li class="time">
                 <p>{{ filme.runtime | convertTime }}</p>
@@ -131,7 +133,7 @@
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     border-top: 2px solid var(--branco); 
     border-bottom: 2px solid var(--branco); 
     padding: 20px 0;
@@ -157,6 +159,14 @@
 
   .generos span::before {
     content: " / ";
+  }
+
+  .generos span a {
+    color: var(--branco);
+  }
+
+  .generos span a:hover {
+    text-decoration: underline;
   }
 
   .time {
