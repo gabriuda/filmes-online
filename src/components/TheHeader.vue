@@ -18,6 +18,7 @@
           <li><router-link to="/?page=1">Início</router-link></li>
           <li><router-link to="/categorias">Categorias</router-link></li>
           <li><router-link to="/populares/?page=1">Populares</router-link></li>
+          <li><router-link to="/copyright">Copyright</router-link></li>
         </ul>
       </nav>
     </div>
@@ -98,7 +99,7 @@
     display: none;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 920px) {
     .search-menu {
       display: block;
     }
@@ -160,7 +161,7 @@
     transform: rotate(-45deg);
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 920px) {
     .menu ul {
       display: block;
     }

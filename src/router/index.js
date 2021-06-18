@@ -5,6 +5,7 @@ import Categorias from "../views/Categorias.vue";
 import Categoria from "../views/Categoria.vue";
 import Filme from "../views/Filme.vue";
 import Populares from "../views/Populares.vue";
+import Copyright from "../views/Copyright.vue";
 import PaginaNaoEncontrada from "../views/PaginaNaoEncontrada.vue";
 
 Vue.use(VueRouter);
@@ -41,6 +42,11 @@ const routes = [
     name: "filmes",
     component: Filme,
     props: true,
+  },
+  {
+    path: "/copyright",
+    name: "copyright",
+    component: Copyright,
   },
 ];
 

@@ -133,6 +133,13 @@
     max-width: 600px;
   }
 
+
+  @media screen and (max-width: 920px) {
+    .btn {
+      top: 0%;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     h1 {
       font-size: 2rem;
