@@ -8,6 +8,8 @@
               <img :src="filme.poster_path | filmeImagem" :alt="filme.title">
               <p v-if="filme.release_date" class="filme-data">{{ filme.release_date.slice(0, 4) }}</p>
             </div>
+            <button v-if="!ativarMais" class="btn-ver" @click="ativarMais = true" >Ver mais</button>
+            <button v-else class="btn-ver menos" @click="ativarMais = false">Ver menos</button>
           </div>
           <div class="coluna-2">
             <h2>{{ filme.title }}</h2>
@@ -30,6 +32,27 @@
             <p class="aviso">Ao clicar em assistir, o player do filme será aberto em uma nova guia.</p>
           </div>
         </section>
+
+        <transition mode="out-in">
+          <section v-show="ativarMais" class="mais">
+            <div class="produtoras">
+              <h2>Produtoras</h2>
+              <ul v-if="filme.production_companies.length">
+                <li v-for="emp, index in filme.production_companies" :key="index">
+                  <p v-if="emp.name">- {{ emp.name }}</p>
+                </li>
+              </ul>
+              <p v-else>Sem dados.</p>
+            </div>
+            <div>
+              <div class="tmdb-votos">
+                <p>TMDB: <span class="nota">{{ filme.vote_average }}</span></p>
+                <p class="quantidade-nota">Votações: <span class="nota">{{ filme.vote_count }}</span></p>
+              </div>
+              <p v-if="filme.tagline" class="tagline">{{ filme.tagline }}</p>
+            </div>
+          </section>
+        </transition>
 
         <section>
           <h2 class="t-feed">Talvez você goste também</h2>
@@ -54,7 +77,8 @@
     },
     data() {
       return {
-        listaRecomendados: null
+        listaRecomendados: null,
+        ativarMais: false,
       }
     },
     computed: {
@@ -201,19 +225,79 @@
     flex-direction: column;
   }
 
-  .filme-iframe {
-    margin: 60px 0;
-    position: relative;
-    padding-bottom: 56.25%;
+  .btn-ver {
+    font-family: 'Karla', sans-serif;
+    color: var(--branco);
+    font-size: 1rem;
+    margin-top: 30px;
+    padding: 10px 60px;
+    border: none;
+    background: url('../assets/arrow-down.svg') no-repeat;
+    background-position: 90% 50%;
+    background-size: 16px;
+    cursor: pointer;
   }
 
-  .filme-iframe iframe {
+  .btn-ver.menos {
+    background: url('../assets/arrow-up.svg') no-repeat;
+    background-position: 90% 50%;
+    background-size: 16px;
+  }
+
+  .mais {
+    display: grid;
+    grid-template-columns: minmax(300px, 400px) 1fr;
+    margin: 60px auto;
+    gap: 30px;
+  }
+
+  .produtoras ul li p {
+    color: var(--azul);
+  }
+
+  .produtoras ul li img {
+    max-width: 150px;
+  }
+  
+  .tmdb-votos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid var(--branco);
+    padding: 20px 30px;
+    background: url('../assets/star.svg') no-repeat;
+    background-size: 40px;
+    background-position: 95% 50%;
+  }
+
+  .tmdb-votos p {
+    color: #E4CF13;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nota {
+    font-size: 1.8rem;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .tagline {
+    margin-top: 30px;
+    font-size: 2rem;
+    position: relative;
+    padding-left: 60px;
+  }
+
+  .tagline::before {
+    content: '❝';
     position: absolute;
-    top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px  solid var(--vermelho);
+    top: -100%;
+    font-size: 6rem;
+    font-family: 'Oswald', sans-serif;
+    color: var(--azul);
+    z-index: -1;
   }
 
   @media screen and (max-width: 1100px) {
@@ -233,7 +317,12 @@
     .coluna-2 {
       grid-row: 1;
     }
-    
+    .mais {
+      grid-template-columns: 1fr;
+    }
+    .produtoras {
+      grid-row: 2;
+    }
   }
   @media screen and (max-width: 580px) {
     .filme-info li {
