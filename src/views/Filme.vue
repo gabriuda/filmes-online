@@ -49,7 +49,7 @@
                 <p>TMDB: <span class="nota">{{ filme.vote_average }}</span></p>
                 <p class="quantidade-nota">Votações: <span class="nota">{{ filme.vote_count }}</span></p>
               </div>
-              <p v-if="filme.tagline" class="tagline">{{ filme.tagline }}</p>
+              <p v-if="filme.tagline" class="tagline"><span>❝</span>{{ filme.tagline }}</p>
             </div>
           </section>
         </transition>
@@ -283,17 +283,10 @@
   }
 
   .tagline {
-    margin-top: 30px;
     font-size: 2rem;
-    position: relative;
-    padding-left: 60px;
   }
 
-  .tagline::before {
-    content: '❝';
-    position: absolute;
-    left: 0;
-    top: -100%;
+  .tagline span {
     font-size: 6rem;
     font-family: 'Oswald', sans-serif;
     color: var(--azul);
@@ -322,6 +315,12 @@
     }
     .produtoras {
       grid-row: 2;
+    }
+    .tagline {
+      font-size: 1.4rem;
+    }
+    .tagline span {
+      font-size: 3rem;
     }
   }
   @media screen and (max-width: 580px) {
