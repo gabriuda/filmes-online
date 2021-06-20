@@ -329,8 +329,13 @@
       background-size: 15px;
     }
     .filme-info {
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+    .generos {
+      grid-column: 1 / -1;
     }
   }
 </style>
