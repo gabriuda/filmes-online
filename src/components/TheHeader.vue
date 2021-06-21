@@ -62,7 +62,6 @@
 <style scoped>
   header {
     padding: 20px;
-    background: var(--background);
   }
 
   .header-container {

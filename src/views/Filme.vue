@@ -2,6 +2,10 @@
   <section>
     <transition mode="out-in">
       <div v-if="filme">
+        <div class="img-background">
+          <img :src="filme.backdrop_path | filmeImagem" :alt="filme.title">
+          <div class="background"></div>
+        </div>
         <section class="filme-container">
           <div class="filme-flex">
             <div class="filme-content">
@@ -121,6 +125,28 @@
 </script>
 
 <style scoped>
+  .img-background img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(.4);
+  }
+
+  .img-background .background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background: var(--background);
+    box-shadow: 0px -50px 100px 60px var(--background);
+    z-index: -1;
+  }
+
   .aviso {
     margin-top: 30px;
     border: 3px solid var(--azul);
