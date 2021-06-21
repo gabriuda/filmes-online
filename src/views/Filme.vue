@@ -233,6 +233,7 @@
     border-color: var(--vermelho);
     font-family: 'Oswald', sans-serif;
     color: var(--vermelho);
+    background: transparent;
     padding: 10px 60px;
     font-size: 1.5rem;
     margin-top: 30px;
