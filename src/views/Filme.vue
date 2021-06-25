@@ -20,7 +20,7 @@
             <ul class="filme-info">
               <li class="generos">
                 <span v-for="(genero, index) in filme.genres" :key="index">
-                  <router-link :to="{ name: 'categoria', params: { id: genero.id } }">{{ genero.name }}</router-link>
+                  <router-link :to="{ name: 'categoria', query: { page: 1 }, params: { id: genero.id } }">{{ genero.name }}</router-link>
                 </span>
               </li>
               <li class="time">
