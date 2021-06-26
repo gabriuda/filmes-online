@@ -166,6 +166,7 @@
   }
 
   .filme-content {
+    align-self: center;
     position: relative;
   }
   
