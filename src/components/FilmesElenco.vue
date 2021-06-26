@@ -41,7 +41,27 @@
     gap: 30px 20px;
     align-items: center;
     height: 430px;
-    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border: 2px solid var(--azul);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--azul); 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--azul); 
   }
 
   ul li {

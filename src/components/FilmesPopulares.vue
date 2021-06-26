@@ -6,6 +6,7 @@
           <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
             <b class="filme-titulo">{{ filme.title }}</b>
             <img v-if="filme.backdrop_path" :src="filme.backdrop_path | filmeImagem" :alt="filme.title">
+            <PageLoading v-else />
             <p v-if="filme.release_date" class="filme-data">{{ filme.release_date.slice(0, 4) }}</p>
           </router-link>
         </div>

@@ -26,8 +26,8 @@
         </router-link>
       </div>
     </div>
-  </transition>
   <PageLoading v-else />
+  </transition>
 </template>
 
 <script>

@@ -52,7 +52,6 @@
           <div>
             <h2>Elenco</h2>
             <FilmesElenco :id="id" />
-            <!-- <p v-else>Sem dados.</p> -->
           </div>
           <div>
             <h2>Produtoras</h2>
@@ -277,6 +276,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     margin: 60px auto;
+    gap: 30px;
   }
 
   .tmdb-votos {
