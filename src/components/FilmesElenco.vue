@@ -1,0 +1,71 @@
+<template>
+  <div>
+    <ul v-if="elenco">
+      <li v-for="item, i in elenco.cast" :key="i">
+        <img v-if="item.profile_path" :src="item.profile_path | filmeImagem" :alt="item.name">
+        <img v-else src="@/assets/people.png" class="img-people" />
+        <p>{{ item.character }}</p>
+        <b>{{ item.name }}</b>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+  import { tmdbApi, apiKey, language } from "@/services/index.js";
+
+  export default {
+    name: "FilmesElenco",
+    props: ["id"],
+    data() {
+      return {
+        elenco: null,
+      }
+    },
+    methods:{
+      puxarElenco() {
+        tmdbApi.get(`/movie/${this.id}/casts?api_key=${apiKey}&${language}`)
+        .then((response) => this.elenco = response.data);
+      }
+    },
+    created() {
+      this.puxarElenco();
+    }
+  }
+</script>
+
+<style scoped>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 20px;
+    align-items: center;
+    height: 430px;
+    overflow: hidden;
+  }
+
+  ul li {
+    max-width:  100px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  b {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.775rem;
+    color: var(--azul);
+  }
+
+  p, b {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .img-people {
+    object-fit: cover;
+    height: 150px;
+  }
+</style>

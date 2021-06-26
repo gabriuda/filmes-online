@@ -3,7 +3,7 @@
     <transition mode="out-in">
       <div v-if="filme">
         <div class="img-background">
-          <img :src="filme.backdrop_path | filmeImagem" :alt="filme.title">
+          <img v-if="filme.backdrop_path" :src="filme.backdrop_path | filmeImagem" :alt="filme.title">
           <div class="background"></div>
         </div>
         <section class="filme-container">
@@ -12,11 +12,14 @@
               <img :src="filme.poster_path | filmeImagem" :alt="filme.title">
               <p v-if="filme.release_date" class="filme-data">{{ filme.release_date.slice(0, 4) }}</p>
             </div>
-            <button v-if="!ativarMais" class="btn-ver" @click="ativarMais = true" >Ver mais</button>
-            <button v-else class="btn-ver menos" @click="ativarMais = false">Ver menos</button>
+            <div class="tmdb-votos">
+              <p>TMDB: <span class="nota">{{ filme.vote_average }}</span></p>
+              <p class="quantidade-nota">Votações: <span class="nota">{{ filme.vote_count }}</span></p>
+            </div>
           </div>
           <div class="coluna-2">
             <h2>{{ filme.title }}</h2>
+            <h3 v-if="filme.tagline" class="tagline">{{ filme.tagline }}</h3>
             <ul class="filme-info">
               <li class="generos">
                 <span v-for="(genero, index) in filme.genres" :key="index">
@@ -32,31 +35,34 @@
             </ul>
             <p v-if="filme.overview">{{ filme.overview }}</p>
             <p v-else>Sem sinopse disponível</p>
-            <a target="_blank" :href="`https://hdfog.club/video/player.php?id=${filme.imdb_id}&site=Online%20Filmes&color=1B262C`"><button class="btn btn-assistir">Assistir</button></a>
-            <p class="aviso">Ao clicar em assistir, o player do filme será aberto em uma nova guia.</p>
+            <div class="btns">
+              <button @click="assistir = true" class="btn btn-assistir">Assistir</button>
+              <transition mode="out-in">
+                <div class="servidores" v-if="assistir">
+                  <a target="_blank" :href="`https://hdfog.club/video/player.php?id=${filme.imdb_id}&site=Online%20Filmes&color=1B262C`" class="btn">Servidor 1</a>
+                  <a target="_blank" :href="`https://api.obaflix.com/embed/${filme.imdb_id}`" class="btn">Servidor 2</a>
+                </div>
+              </transition>
+            </div>
+            <p class="aviso">O player do filme será aberto em uma nova guia.</p>
           </div>
         </section>
 
-        <transition mode="out-in">
-          <section v-show="ativarMais" class="mais">
-            <div class="produtoras">
-              <h2>Produtoras</h2>
-              <ul v-if="filme.production_companies.length">
+        <section class="mais">
+          <div>
+            <h2>Elenco</h2>
+            <FilmesElenco :id="id" />
+            <!-- <p v-else>Sem dados.</p> -->
+          </div>
+          <div>
+            <h2>Produtoras</h2>
+            <ul v-if="filme.production_companies.length">
                 <li v-for="emp, index in filme.production_companies" :key="index">
                   <p v-if="emp.name">- {{ emp.name }}</p>
                 </li>
               </ul>
-              <p v-else>Sem dados.</p>
-            </div>
-            <div>
-              <div class="tmdb-votos">
-                <p>TMDB: <span class="nota">{{ filme.vote_average }}</span></p>
-                <p class="quantidade-nota">Votações: <span class="nota">{{ filme.vote_count }}</span></p>
-              </div>
-              <p v-if="filme.tagline" class="tagline"><span>❝</span>{{ filme.tagline }}</p>
-            </div>
-          </section>
-        </transition>
+          </div>
+        </section>
 
         <section>
           <h2 class="t-feed">Talvez você goste também</h2>
@@ -71,18 +77,20 @@
 
 <script>
   import FilmesComponente from "@/components/FilmesComponente.vue";
+  import FilmesElenco from "@/components/FilmesElenco.vue";
   import { tmdbApi, apiKey, language } from "@/services/index.js";
   
   export default {
     name: "Filme",
     props: ["id"],
     components: {
-      FilmesComponente
+      FilmesComponente,
+      FilmesElenco
     },
     data() {
       return {
         listaRecomendados: null,
-        ativarMais: false,
+        assistir: false,
       }
     },
     computed: {
@@ -130,7 +138,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     object-fit: cover;
     z-index: -2;
     filter: brightness(.4);
@@ -141,7 +149,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60vh;
+    height: 40vh;
     background: var(--background);
     box-shadow: 0px -50px 100px 60px var(--background);
     z-index: -1;
@@ -170,11 +178,11 @@
     margin: 40px 0;
     display: grid;
     grid-template-columns: minmax(200px, 330px) 1fr;
-    grid-gap: 60px;
+    grid-gap: 30px;
   }
 
   h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .filme-info {
@@ -236,7 +244,6 @@
     background: transparent;
     padding: 10px 60px;
     font-size: 1.5rem;
-    margin-top: 30px;
   }
 
   .btn-assistir:hover {
@@ -248,51 +255,36 @@
 
   .filme-flex {
     display: flex;
-    align-items: center;
     flex-direction: column;
   }
 
-  .btn-ver {
-    font-family: 'Karla', sans-serif;
-    color: var(--branco);
-    font-size: 1rem;
+  .btns {
     margin-top: 30px;
-    padding: 10px 60px;
-    border: none;
-    background: url('../assets/arrow-down.svg') no-repeat;
-    background-position: 90% 50%;
-    background-size: 16px;
-    cursor: pointer;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 30px;
   }
-
-  .btn-ver.menos {
-    background: url('../assets/arrow-up.svg') no-repeat;
-    background-position: 90% 50%;
-    background-size: 16px;
+  
+  .servidores {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .mais {
     display: grid;
-    grid-template-columns: minmax(300px, 400px) 1fr;
+    grid-template-columns: 2fr 1fr;
     margin: 60px auto;
-    gap: 30px;
   }
 
-  .produtoras ul li p {
-    color: var(--azul);
-  }
-
-  .produtoras ul li img {
-    max-width: 150px;
-  }
-  
   .tmdb-votos {
+    margin-top: 30px;
     display: flex;
     align-items: center;
     gap: 20px;
     border: 2px solid var(--branco);
     padding: 20px 30px;
-    background: url('../assets/star.svg') no-repeat;
     background-size: 40px;
     background-position: 95% 50%;
   }
@@ -308,16 +300,12 @@
     font-size: 1.8rem;
     font-family: 'Oswald', sans-serif;
   }
-
+  
   .tagline {
-    font-size: 2rem;
-  }
-
-  .tagline span {
-    font-size: 6rem;
-    font-family: 'Oswald', sans-serif;
-    color: var(--azul);
-    z-index: -1;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--vermelho);
   }
 
   @media screen and (max-width: 1100px) {
@@ -328,14 +316,25 @@
       padding-left: 20px;
       background-size: 15px;
     }
+    .btns{
+      grid-template-columns: 1fr;
+    }
   }
 
   @media screen and (max-width: 800px) {
     .filme-container {
       grid-template-columns: 1fr;
     }
-    .coluna-2 {
-      grid-row: 1;
+    .filme-content img, 
+    .filme-content {
+      height: 300px;
+    }
+    .img-background .background {
+      height: 0px;
+      box-shadow: 0px 0px 100px 130px var(--background);
+    }
+    .img-background img {
+      height: 100vh;
     }
     .mais {
       grid-template-columns: 1fr;
@@ -363,6 +362,10 @@
     }
     .generos {
       grid-column: 1 / -1;
+    }
+    .tagline {
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
   }
 </style>
