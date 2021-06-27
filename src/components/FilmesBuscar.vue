@@ -1,30 +1,60 @@
 <template>
-  <form>
-    <div class="search">
-      <input type="text" placeholder="Buscar filme..." v-model.lazy="termo">
-      <input type="submit" value="Buscar" @click.prevent="buscarFilmes">
-    </div>
-  </form>
+  <div>
+    <form>
+      <div class="search">
+        <input type="text" placeholder="Buscar filme..." v-model="termo">
+        <input type="submit" value="Buscar" @click.prevent="buscarFilmes">
+      </div>
+    </form>
+    <ul v-if="ativarSugestoes && sugestoes && sugestoes.results.length > 0">
+      <li v-for="(filme, index) in sugestoes.results" :key="index" >
+        <router-link :to="{ name: 'filmes', params: { id: filme.id } }" v-if="filme.backdrop_path">
+          <img v-if="filme.backdrop_path" :src="filme.backdrop_path | filmeImagem" :alt="filme.title">
+          <p>{{ filme.title }}</p>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
+  import { tmdbApi, apiKey, language } from "@/services/index.js";
+
   export default {
     name: "FilmesBuscar",
     data() {
       return {
         termo: "",
+        ativarSugestoes: false,
+        sugestoes: null,
       }
     },
     methods: {
       buscarFilmes() {
+        this.$store.dispatch("getFilmesBuscados", null);
         this.$router.push({ query: { page: 1, query: this.termo } })
         .catch(() => {});
+      },
+      exibirSugestoes() {
+        this.ativarSugestoes = true;
+        tmdbApi.get(`/search/movie?query=${this.termo}&api_key=${apiKey}&${language}`)
+        .then((response) => {
+          this.sugestoes = response.data;
+        });
       }
     },
     watch: {
       termo() {
-        this.buscarFilmes();
+        this.exibirSugestoes();
       }
+    },
+    created() {
+      const html = document.documentElement;
+       html.addEventListener('click', (e) => {
+        if (!this.$el.contains(e.target)){
+          this.ativarSugestoes = false;
+        }
+      });
     }
   }
 </script>
@@ -37,6 +67,69 @@
     .search input[type="text"] {
       padding: 10px;
       font-size: .8rem;
+    }
+  }
+
+  div {
+    position: relative
+  }
+
+  ul {
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 960px;
+    background: var(--background);
+    box-shadow: var(--shadow_hover);
+  }
+
+  ul li a {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+  }
+
+  ul li a:hover {
+    background: var(--azul);
+  }
+
+  ul li a p {
+    padding: 0 15px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+  }
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border: 2px solid var(--azul);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--azul); 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--azul); 
+  }
+
+  @media screen and (max-width: 500px) {
+    ul li a {
+      grid-template-columns: 80px 1fr;
     }
   }
 </style>
