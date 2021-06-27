@@ -35,7 +35,7 @@
             </ul>
             <p v-if="filme.overview">{{ filme.overview }}</p>
             <p v-else>Sem sinopse disponível</p>
-            <div class="btns">
+            <div class="btns" v-if="filme.vote_count > 1">
               <button @click="assistir = true" class="btn btn-assistir">Assistir</button>
               <transition mode="out-in">
                 <div class="servidores" v-if="assistir">
@@ -44,6 +44,7 @@
                 </div>
               </transition>
             </div>
+            <p v-else class="tagline em-breve">Em breve...</p>
             <p class="aviso">O player do filme será aberto em uma nova guia.</p>
           </div>
         </section>
@@ -263,6 +264,10 @@
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 30px;
+  }
+
+  .em-breve {
+    margin: 30px 0;
   }
   
   .servidores {

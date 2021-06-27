@@ -8,6 +8,7 @@
         <b>{{ item.name }}</b>
       </li>
     </ul>
+    <p v-else>Sem dados</p>
   </div>
 </template>
 
