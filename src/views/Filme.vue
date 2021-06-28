@@ -226,6 +226,7 @@
 
   .generos span a:hover {
     text-decoration: underline;
+    color: var(--azul);
   }
 
   .time {
@@ -288,6 +289,7 @@
     margin-top: 30px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     border: 2px solid var(--branco);
     padding: 20px 30px;

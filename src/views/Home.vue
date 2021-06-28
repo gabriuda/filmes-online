@@ -7,7 +7,7 @@
     <div v-if="!query">
       <h2 class="t-feed t-recentes">Mais Populares</h2>
       <FilmesPopulares />
-      <FilmesListaCategorias />
+      <FilmesListaCategorias class="categorias" />
     </div>
     <FilmesFeed v-else />
   </div>
@@ -39,6 +39,10 @@ export default {
 </script>
 
 <style scoped>
+  .categorias {
+    margin-top: 60px;
+  }
+
   div {
     display: flex;
     flex-direction: column;

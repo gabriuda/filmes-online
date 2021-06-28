@@ -52,10 +52,6 @@
 </script>
 
 <style scoped>
-  .categorias-container {
-    margin: 60px 0;
-  }
-
   .categorias-flex {
     display: flex;
     align-items: center;

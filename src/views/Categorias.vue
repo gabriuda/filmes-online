@@ -1,5 +1,9 @@
 <template>
   <section>
+    <ul class="paginas">
+      <li><router-link to="/">Início</router-link></li>
+      <li><router-link to="/categorias">Categorias</router-link></li>
+    </ul>
     <FilmesListaCategorias />
   </section>  
 </template>

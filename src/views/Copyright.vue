@@ -1,5 +1,9 @@
 <template>
   <section>
+    <ul class="paginas">
+      <li><router-link to="/">Início</router-link></li>
+      <li><router-link to="/copyright">Copyright</router-link></li>
+    </ul>
     <h1>Aviso Importante</h1>
     <p class="p-copy">Nós não hospedamos quaisquer filmes e/ou informações em nosso servidor. Todos os dados são indexados de forma automática, e organizados em nosso layout. Aos filmes, fazemos a incorporação (embed), de um servidor externo, com links dinâmicos. Não nos responsabilizamos pelo conteúdo encontrado por meio desses links externos.</p>
     <ul>

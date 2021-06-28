@@ -1,5 +1,10 @@
 <template>
   <section>
+    <ul class="paginas">
+      <li><router-link to="/">Início</router-link></li>
+      <li><router-link to="/categorias">Categorias</router-link></li>
+      <li><router-link :to="`/categorias/${idFilme}?page=1`">{{ categoriaNome }}</router-link></li>
+    </ul>
     <div class="opcoes">
       <h1>{{ categoriaNome }}</h1>
       <select class="btn" v-if="categorias" @change="mudarRota">
