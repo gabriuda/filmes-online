@@ -75,6 +75,7 @@ h1 {
   font-size: 6rem;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--branco);
+  line-height: 1;
 }
 
 h2 {
@@ -157,6 +158,39 @@ main {
   cursor: pointer;
 }
 
+/* Páginas */
+.paginas {
+  font-size: 0.9rem;
+  font-family: 'Karla', sans-serif;
+  color: var(--branco);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 4px;
+}
+
+.paginas li,
+.paginas a {
+  color: var(--branco);
+  padding: 10px 0px;
+}
+
+.paginas a:hover,
+.paginas a.router-link-exact-active {
+  text-decoration: underline;
+  color: var(--azul);
+}
+
+.paginas li:first-child:before {
+  content: '';
+}
+
+.paginas li:first-child:after {
+  content: '';
+}
+
+.paginas li::before {
+  content: ' > ';
+}
 
 /* Botão */
 .btn {
@@ -203,6 +237,7 @@ main {
   display: flex;
 }
 
+/* Responsivo */
 @media screen and (max-width: 920px) {
   h1 {
     font-size: 3rem;

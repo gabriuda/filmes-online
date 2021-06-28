@@ -1,9 +1,13 @@
 <template>
   <transition mode="out-in">
-    <div>
+    <section>
+      <ul class="paginas">
+        <li><router-link to="/">Início</router-link></li>
+        <li><router-link to="/populares?page=1">Populares</router-link></li>
+      </ul>
       <h1>Filmes Populares</h1>
       <FilmesPopulares />
-    </div>
+    </section>
   </transition>
 </template>
 
