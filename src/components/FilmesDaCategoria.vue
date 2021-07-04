@@ -44,7 +44,6 @@
     }
   }
 
-  // Consertar data
 </script>
 
 <style>
