@@ -143,7 +143,7 @@ export default {
 
 @media screen and (max-width: 460px) {
   .filme img {
-    height: 160px;
+    height: 200px;
   }
   .filme-data,
   .filme-titulo {
