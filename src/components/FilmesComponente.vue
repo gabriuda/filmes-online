@@ -74,9 +74,12 @@ export default {
 .filmes-container {
   margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   grid-gap: 30px;
   justify-items: start;
+  align-content: start;
+  justify-content: start;
+  align-items: start;
 }
 
 .filme {
