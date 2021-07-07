@@ -2,14 +2,12 @@
   <transition mode="out-in" v-if="carousel && listaFilmes">
     <carousel
       :responsive="{
-        0: { items: 1 },
-        300: { items: 2 },
         600: { items: 3 },
         1000: { items: 4 },
       }"
       :nav="false"
       :dots="false"
-      :margin="20"
+      :margin="15"
       class="filmes-carousel"
       v-if="carousel && listaFilmes"
     >
