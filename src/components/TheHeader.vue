@@ -2,16 +2,39 @@
   <header>
     <div class="header-container">
       <router-link to="/?page=1" class="logo">
-        <img alt="OnlineFilmes" src="../assets/logo.svg">
+        <img alt="OnlineFilmes" src="../assets/logo.svg" />
       </router-link>
       <nav class="menu">
-        <button @click.prevent="abrirMenu" class="open-menu" :class="{ active: ativarMenu }"><span></span><span></span><span></span></button>
+        <button
+          @click.prevent="abrirMenu"
+          class="open-menu"
+          :class="{ active: ativarMenu }"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <button class="btn-pesquisar" @click="ativarPesquisa = true">
+          <img src="@/assets/lupa.svg" alt="" />
+        </button>
+        <transition mode="out-in">
+          <form class="pesquisa-ativa" v-if="ativarPesquisa">
+            <FilmesBuscar />
+          </form>
+        </transition>
         <ul :class="{ active: ativarMenu }">
           <li class="search-menu">
             <form>
               <div class="search">
-                <input type="text" placeholder="Buscar filme..." v-model.lazy="termo" @change="buscarFilmes">
-                <input type="submit" value="Buscar" @click.prevent="buscarFilmes">
+                <input
+                  type="text"
+                  placeholder="Buscar filme..."
+                  v-model.lazy="termo"
+                  @change="buscarFilmes"
+                />
+                <input
+                  type="submit"
+                  value="Buscar"
+                  @click.prevent="buscarFilmes"
+                />
               </div>
             </form>
           </li>
@@ -26,175 +49,267 @@
 </template>
 
 <script>
-  export default {
-    name: "TheHeader",
-    data() {
-      return {
-        ativarMenu: false,
-        termo: "",
-      }
+import FilmesBuscar from "./FilmesBuscar.vue";
+
+export default {
+  name: "TheHeader",
+  components: {
+    FilmesBuscar,
+  },
+  data() {
+    return {
+      ativarPesquisa: false,
+      ativarMenu: false,
+      termo: "",
+    };
+  },
+  computed: {
+    query() {
+      return this.$route.query;
     },
-    methods: {
-      abrirMenu() {
-        this.ativarMenu = !this.ativarMenu;
-      },
-      buscarFilmes() {
-        this.$router.push({ name: 'Home', query: { query: this.termo } })
-        .catch(() => {});
-        this.abrirMenu();
-      }
+    url() {
+      return this.$route.path;
     },
-    watch: {
-      termo() {
-        this.buscarFilmes();
-      },
+  },
+  methods: {
+    headerScroll() {
+      window.addEventListener("scroll", () => {
+        const activeClass = "active";
+        const header = document.querySelector("header");
+        if (window.pageYOffset !== 0) header.classList.add(activeClass);
+        else header.classList.remove(activeClass);
+      });
     },
-    created() {
-       window.addEventListener('click', (e) => {
-        if (!this.$el.contains(e.target)){
+    abrirMenu() {
+      this.ativarMenu = !this.ativarMenu;
+    },
+    fecharMenu() {
+      window.addEventListener("click", (e) => {
+        if (!this.$el.contains(e.target)) {
+          this.ativarPesquisa = false;
           this.ativarMenu = false;
         }
       });
-    }
-  }
+    },
+    buscarFilmes() {
+      this.$router
+        .push({ name: "Home", query: { query: this.termo } })
+        .catch(() => {});
+      this.abrirMenu();
+    },
+  },
+  watch: {
+    termo() {
+      this.buscarFilmes();
+    },
+    query() {
+      this.ativarPesquisa = false;
+    },
+    url() {
+      this.ativarMenu = false;
+    },
+  },
+  created() {
+    this.headerScroll(), this.fecharMenu();
+  },
+};
 </script>
 
 <style scoped>
-  header {
-    padding: 20px;
-  }
+header {
+  padding: 20px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 9999;
+  transition: 0.2s;
+}
 
-  .header-container {
-    margin: 0 auto;
-    max-width: 1200px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.pesquisa-ativa {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  padding: 20px;
+  background: var(--background);
+  box-shadow: var(--shadow_hover);
+}
 
-  .menu ul {
-    display: flex;
-    align-items: center;
-    gap: 60px;
+header.active {
+  padding: 10px;
+  background: var(--background);
+  box-shadow: var(--shadow_hover);
+}
+
+header.active .menu ul li a {
+  font-size: 1.2rem;
+}
+
+.header-container a,
+.open-menu {
+  transition: 0.2s;
+}
+
+header.active .header-container a {
+  width: 100px;
+}
+
+header.active .open-menu {
+  top: 19px;
+}
+
+.header-container {
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu ul {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.menu ul li a {
+  display: block;
+  padding: 10px 0px;
+  font-family: "Karla", sans-serif;
+  color: var(--branco);
+  font-size: 1.5rem;
+}
+
+.menu ul li a:hover {
+  color: var(--azul);
+}
+
+.menu ul li a.router-link-exact-active {
+  color: var(--azul);
+}
+
+.search-menu {
+  display: none;
+}
+
+.btn-pesquisar {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px;
+  display: none;
+}
+
+@media screen and (max-width: 920px) {
+  .search-menu {
+    display: block;
   }
 
   .menu ul li a {
+    font-size: 1.2rem;
+  }
+  .logo {
+    max-width: 100px;
+  }
+}
+
+.open-menu {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: var(--background);
+  border: none;
+  position: relative;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.open-menu span {
+  right: 10px;
+  left: 10px;
+  position: absolute;
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--branco);
+  transition: transform 0.4s;
+}
+
+.open-menu span:nth-child(1) {
+  top: 13px;
+}
+
+.open-menu span:nth-child(2) {
+  top: 20px;
+}
+
+.open-menu span:nth-child(3) {
+  top: 27px;
+}
+
+.open-menu.active span:nth-child(1) {
+  top: 20px;
+  transform: rotate(45deg);
+}
+
+.open-menu.active span:nth-child(2) {
+  transform: translate3d(-10px, 0, 0);
+  visibility: hidden;
+}
+
+.open-menu.active span:nth-child(3) {
+  top: 20px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 920px) {
+  .btn-pesquisar {
+    display: initial;
+  }
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-direction: row-reverse;
+  }
+  .menu ul {
     display: block;
-    padding: 10px 0px;
-    font-family: 'Karla', sans-serif;
-    color: var(--branco);
-    font-size: 1.5rem;
   }
-  
-  .menu ul li a:hover {
-    color: var(--azul);
+  .menu ul li {
+    padding: 0 20px;
   }
-
-  .menu ul li a.router-link-exact-active {
-    color: var(--azul);
+  .menu ul li + li {
+    margin-top: 20px;
   }
-
-  .search-menu {
-    display: none;
-  }
-
-  @media screen and (max-width: 920px) {
-    .search-menu {
-      display: block;
-    }
-
-    .menu ul li a {
-      font-size: 1.2rem;
-    }
-    .logo {
-      max-width: 100px;
-    }
-  }
-
   .open-menu {
-    display: none;
-    width: 40px;
-    height: 40px;
-    background: var(--background);
-    border: none;
-    position: relative;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-  }
-
-  .open-menu span {
-    right: 10px;
-    left: 10px;
-    position: absolute;
     display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--branco);
-    transition: transform 0.4s;
+    z-index: 1999;
+    position: fixed;
+    right: 20px;
+    top: 29px;
   }
-
-  .open-menu span:nth-child(1) {
-    top: 13px;
+  .btn-pesquisar {
+    margin-right: 60px;
   }
-
-  .open-menu span:nth-child(2) {
-    top: 20px;
+  .menu ul {
+    position: fixed;
+    top: 0;
+    transition: 0.4s;
+    right: 0px;
+    transform: translate3d(500px, 0px, 0px);
+    height: 100vh;
+    padding-top: 20px;
+    box-shadow: -20px 0px 20px 0 rgba(0, 0, 0, 0.35);
+    background: var(--background);
+    z-index: 999;
   }
-
-  .open-menu span:nth-child(3) {
-    top: 27px;
+  .menu ul li:first-child {
+    margin-top: 60px;
   }
-
-  .open-menu.active span:nth-child(1) {
-    top: 20px;
-    transform: rotate(45deg);
+  .menu ul.active {
+    transform: translate3d(0px, 0px, 0px);
+    z-index: 999;
   }
-
-  .open-menu.active span:nth-child(2) {
-    transform: translate3d(-10px, 0, 0);
-    visibility: hidden;
-  }
-
-  .open-menu.active span:nth-child(3) {
-    top: 20px;
-    transform: rotate(-45deg);
-  }
-
-  @media (max-width: 920px) {
-    .menu ul {
-      display: block;
-    }
-    .menu ul li {
-      padding: 0 20px;
-    }
-    .menu ul li + li {
-      margin-top: 20px;
-    }
-    .open-menu {
-      display: block;
-      z-index: 1999;
-      position: fixed;
-      right: 32px;
-      top: 32px;
-    }
-    .menu ul {
-      position: fixed;
-      top: 0;
-      transition: .4s;
-      right: 0px;
-      transform: translate3d(500px, 0px, 0px);
-      height: 100vh;
-      padding-top: 20px;
-      box-shadow: -20px 0px 20px 0 rgba(0,0,0,.35);
-      background: var(--background);
-      z-index: 999;
-    }
-    .menu ul li:first-child {
-      margin-top: 60px;
-    }
-    .menu ul.active {
-      transform: translate3d(0px, 0px, 0px);
-      z-index: 999;
-    }
-  }
+}
 </style>

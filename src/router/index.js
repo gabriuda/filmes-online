@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Pesquisa from "../views/Pesquisa.vue";
 import Categorias from "../views/Categorias.vue";
 import Categoria from "../views/Categoria.vue";
 import Filme from "../views/Filme.vue";
@@ -21,6 +22,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/pesquisar",
+    name: "Pesquisa",
+    component: Pesquisa,
   },
   {
     path: "/populares",
