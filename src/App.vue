@@ -20,7 +20,7 @@ export default {
     TheHeader,
     TheFooter,
   },
-}
+};
 </script>
 
 <style>
@@ -51,12 +51,12 @@ img {
 
 /* Colors */
 :root {
-  --background: #1B262C;
-  --branco: #EEEBDD;
-  --shadow: 0px 4px 8px 0px rgba(30,60,90,.15);
-  --shadow_hover: 0px 16px 26px 0px rgba(30,60,90,.75);
-  --azul: #0F4C75;
-  --vermelho: #CE1212;
+  --background: #1b262c;
+  --branco: #eeebdd;
+  --shadow: 0px 4px 8px 0px rgba(30, 60, 90, 0.15);
+  --shadow_hover: 0px 16px 26px 0px rgba(30, 60, 90, 0.75);
+  --azul: #0f4c75;
+  --vermelho: #ce1212;
 }
 
 /* Gerais */
@@ -65,8 +65,10 @@ body {
 }
 
 /* Texto */
-h1, h2, h3 {
-  font-family: 'Oswald', sans-serif;
+h1,
+h2,
+h3 {
+  font-family: "Oswald", sans-serif;
   color: var(--branco);
   line-height: 1;
 }
@@ -87,7 +89,7 @@ h3 {
 }
 
 .t-feed::after {
-  content: '';
+  content: "";
   margin-top: 18px;
   display: block;
   height: 1px;
@@ -95,8 +97,9 @@ h3 {
   width: 100%;
 }
 
-p, span {
-  font-family: 'Karla', sans-serif;
+p,
+span {
+  font-family: "Karla", sans-serif;
   color: var(--branco);
   font-size: 1.2rem;
   font-weight: 400;
@@ -115,6 +118,7 @@ span {
 }
 
 main {
+  padding-top: 130px;
   flex: 1;
 }
 
@@ -137,7 +141,7 @@ main {
   padding: 10px 20px;
   background: var(--background);
   border: 2px solid var(--branco);
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   color: var(--branco);
   font-size: 1rem;
   transition: 0.2s;
@@ -161,7 +165,7 @@ main {
 /* Páginas */
 .paginas {
   font-size: 0.9rem;
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   color: var(--branco);
   margin-bottom: 20px;
   display: flex;
@@ -181,20 +185,20 @@ main {
 }
 
 .paginas li:first-child:before {
-  content: '';
+  content: "";
 }
 
 .paginas li:first-child:after {
-  content: '';
+  content: "";
 }
 
 .paginas li::before {
-  content: ' > ';
+  content: " > ";
 }
 
 /* Botão */
 .btn {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   color: var(--branco);
   font-size: 1rem;
   font-weight: bold;
@@ -204,7 +208,7 @@ main {
   background: var(--background);
   transition: 0.2s;
   cursor: pointer;
-  outline:none;
+  outline: none;
   box-shadow: var(--shadow);
 }
 
@@ -242,6 +246,9 @@ main {
   h1 {
     font-size: 3rem;
   }
+  main {
+    padding-top: 100px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -255,7 +262,7 @@ main {
     font-size: 1rem;
   }
   .btn {
-    font-size: .8rem;
+    font-size: 0.8rem;
     padding: 8px 30px;
   }
 }
