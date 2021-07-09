@@ -2,7 +2,19 @@
   <transition mode="out-in">
     <section>
       <div v-if="filmesBuscados && filmesBuscados.results.length > 0">
-        <p>Resultados para: "{{ query }}"</p>
+        <div class="options">
+          <p>
+            Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
+              query
+            }}"
+          </p>
+          <select class="btn select">
+            <option value="a">Mais populares</option>
+            <option value="a">Mais recentes</option>
+            <option value="a">De A - Z</option>
+            <option value="a">De Z - A</option>
+          </select>
+        </div>
         <transition mode="out-in">
           <div class="filmes-container" v-if="filmesBuscados">
             <div
@@ -26,10 +38,7 @@
           </div>
         </transition>
         <div class="paginacao">
-          <FilmesPaginacao
-            :totalFilmes="filmesBuscados.total_pages"
-            :filmesPorPagina="20"
-          />
+          <FilmesPaginacao :totalFilmes="filmesBuscados.total_pages" />
         </div>
       </div>
       <div v-else>
@@ -83,5 +92,15 @@ p {
   justify-content: center;
   margin: 30px auto 0;
   max-width: 600px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn.select {
+  position: initial;
 }
 </style>

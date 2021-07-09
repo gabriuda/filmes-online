@@ -7,7 +7,7 @@
     </ul>
     <div class="opcoes">
       <h1>{{ categoriaNome }}</h1>
-      <select class="btn" v-if="categorias" @change="mudarRota">
+      <select class="btn select" v-if="categorias" @change="mudarRota">
         <option v-for="(categoria, index) in categorias.genres" 
           :value="categoria.id"
           :key="index">
@@ -115,21 +115,6 @@
    .opcoes {
      position: relative;
    }
-  .btn {
-    position: absolute;
-    right: 0;
-    top: 40%;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: var(--background) url('../assets/arrow-down.svg') no-repeat;
-    background-position: 90% 50%;
-    background-size: 15px;
-    padding-left: 20px;
-  }
-
-  .btn:hover {
-    color: var(--branco);
-  }
 
   .paginacao {
     display: flex;

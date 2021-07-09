@@ -217,6 +217,22 @@ main {
   background: var(--branco);
 }
 
+.btn.select {
+  position: absolute;
+  right: 0;
+  top: 40%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--background) url("./assets/arrow-down.svg") no-repeat;
+  background-position: 90% 50%;
+  background-size: 15px;
+  padding-left: 20px;
+}
+
+.btn.select:hover {
+  color: var(--branco);
+}
+
 /* Animações */
 .v-enter,
 .v-leave-to {
