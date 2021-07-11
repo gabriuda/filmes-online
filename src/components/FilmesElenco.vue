@@ -5,16 +5,18 @@
         <router-link
           :to="{ name: 'elenco', params: { id: item.id, nome: item.name } }"
         >
-          <transition mode="out-in">
-            <img
-              v-if="item.profile_path"
-              :src="item.profile_path | filmeImagem"
-              :alt="item.name"
-            />
-            <img v-else src="@/assets/people.png" class="img-people" />
-          </transition>
-          <p>{{ item.character }}</p>
-          <b>{{ item.name }}</b>
+          <div>
+            <transition mode="out-in">
+              <img
+                v-if="item.profile_path"
+                :src="item.profile_path | filmeImagem"
+                :alt="item.name"
+              />
+              <img v-else src="@/assets/people.png" class="img-people" />
+            </transition>
+            <p>{{ item.character }}</p>
+            <b>{{ item.name }}</b>
+          </div>
         </router-link>
       </li>
     </ul>
@@ -54,6 +56,7 @@ ul {
   align-items: center;
   height: 430px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -74,6 +77,7 @@ ul {
 
 ul li {
   max-width: 100px;
+  overflow-x: hidden;
 }
 
 p {
