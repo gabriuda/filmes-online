@@ -2,7 +2,11 @@
   <transition mode="out-in">
     <section>
       <div v-if="filmesBuscados && filmesBuscados.results.length > 0">
-        <p>Resultados para: "{{ query }}"</p>
+        <p>
+          Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
+            query
+          }}"
+        </p>
         <transition mode="out-in">
           <div class="filmes-container" v-if="filmesBuscados">
             <div
@@ -26,10 +30,7 @@
           </div>
         </transition>
         <div class="paginacao">
-          <FilmesPaginacao
-            :totalFilmes="filmesBuscados.total_pages"
-            :filmesPorPagina="20"
-          />
+          <FilmesPaginacao :totalFilmes="filmesBuscados.total_pages" />
         </div>
       </div>
       <div v-else>
@@ -83,5 +84,9 @@ p {
   justify-content: center;
   margin: 30px auto 0;
   max-width: 600px;
+}
+
+.btn.select {
+  position: initial;
 }
 </style>

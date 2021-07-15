@@ -139,10 +139,11 @@ header {
 header.active {
   padding: 10px;
   background: var(--background);
-  box-shadow: var(--shadow_hover);
+  box-shadow: 0px 0px 80px 0px rgba(30, 60, 90, 0.5);
 }
 
 header.active .menu ul li a {
+  padding: 10px 0px;
   font-size: 1.2rem;
 }
 
@@ -173,12 +174,17 @@ header.active .open-menu {
   gap: 60px;
 }
 
+.menu ul li {
+  padding: 10px 0px;
+}
+
 .menu ul li a {
   display: block;
-  padding: 10px 0px;
+  padding: 10px;
   font-family: "Karla", sans-serif;
   color: var(--branco);
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .menu ul li a:hover {
@@ -189,7 +195,7 @@ header.active .open-menu {
   color: var(--azul);
 }
 
-.search-menu {
+.menu ul li.search-menu {
   display: none;
 }
 

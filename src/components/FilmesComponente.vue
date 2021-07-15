@@ -3,7 +3,7 @@
     <carousel
       :responsive="{
         600: { items: 3 },
-        1000: { items: 4 },
+        1000: { items: 5 },
       }"
       :nav="false"
       :dots="false"
@@ -37,13 +37,13 @@
         class="filme"
         v-for="(filme, index) in listaFilmes.results"
         :key="index"
-        :class="{ ativo: filme.backdrop_path }"
+        :class="{ ativo: filme.poster_path }"
       >
         <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
           <b class="filme-titulo">{{ filme.title }}</b>
           <img
-            v-if="filme.backdrop_path"
-            :src="filme.backdrop_path | filmeImagem"
+            v-if="filme.poster_path"
+            :src="filme.poster_path | filmeImagem"
             :alt="filme.title"
           />
           <p v-if="filme.release_date" class="filme-data">
@@ -72,8 +72,8 @@ export default {
 .filmes-container {
   margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 15px;
   justify-items: start;
   align-content: start;
   justify-content: start;
@@ -96,17 +96,36 @@ export default {
 
 .filme-titulo {
   position: absolute;
-  padding: 10px;
+  padding: 0 10px 0 10px;
+  padding-bottom: 0px;
   background: var(--azul);
   color: var(--branco);
   font-family: "Karla", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 400;
   width: 100%;
   text-align: center;
-  display: block;
+  display: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@keyframes showTitle {
+  from {
+    opacity: 0;
+    box-shadow: none;
+  }
+  to {
+    opacity: 1;
+    padding: 10px;
+    box-shadow: var(--shadow_hover);
+  }
+}
+
+.filme:hover .filme-titulo {
+  display: block;
+  animation: showTitle 0.2s forwards;
 }
 
 .filme img {
@@ -138,17 +157,23 @@ export default {
     bottom: 3%;
   }
   .filme img {
-    height: 230px;
+    height: 200px;
   }
 }
 
 @media screen and (max-width: 460px) {
+  @keyframes showTitle {
+    to {
+      padding: 6px;
+    }
+  }
+
   .filme img {
-    height: 200px;
+    height: 170px;
   }
   .filme-data,
   .filme-titulo {
-    font-size: 0.735rem;
+    font-size: 0.6rem;
     padding: 4px;
   }
 }
