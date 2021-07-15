@@ -121,6 +121,12 @@ ul li a p {
   -webkit-box-orient: vertical;
 }
 
+@media screen and (max-width: 400px) {
+  ul li a p {
+    font-size: 0.8rem;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 15px;
 }
@@ -135,11 +141,5 @@ ul li a p {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--azul);
-}
-
-@media screen and (max-width: 500px) {
-  ul li a {
-    grid-template-columns: 80px 1fr;
-  }
 }
 </style>

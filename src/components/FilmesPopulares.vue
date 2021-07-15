@@ -6,13 +6,13 @@
           class="filme"
           v-for="(filme, index) in filmesPopulares.results"
           :key="index"
-          :class="{ ativo: filme.backdrop_path }"
+          :class="{ ativo: filme.poster_path }"
         >
           <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
             <b class="filme-titulo">{{ filme.title }}</b>
             <img
-              v-if="filme.backdrop_path"
-              :src="filme.backdrop_path | filmeImagem"
+              v-if="filme.poster_path"
+              :src="filme.poster_path | filmeImagem"
               :alt="filme.title"
             />
             <PageLoading v-else />
@@ -49,6 +49,9 @@ export default {
       }
       return queryString;
     },
+    actualPage() {
+      return this.$route.params.page;
+    },
   },
   watch: {
     url() {
@@ -58,7 +61,6 @@ export default {
   },
   created() {
     this.$store.dispatch("getFilmesPopulares", this.url);
-    this.$router.push({ query: { page: 1 } }).catch(() => {});
   },
 };
 </script>

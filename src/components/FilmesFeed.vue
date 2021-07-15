@@ -2,19 +2,11 @@
   <transition mode="out-in">
     <section>
       <div v-if="filmesBuscados && filmesBuscados.results.length > 0">
-        <div class="options">
-          <p>
-            Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
-              query
-            }}"
-          </p>
-          <select class="btn select">
-            <option value="a">Mais populares</option>
-            <option value="a">Mais recentes</option>
-            <option value="a">De A - Z</option>
-            <option value="a">De Z - A</option>
-          </select>
-        </div>
+        <p>
+          Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
+            query
+          }}"
+        </p>
         <transition mode="out-in">
           <div class="filmes-container" v-if="filmesBuscados">
             <div
@@ -92,12 +84,6 @@ p {
   justify-content: center;
   margin: 30px auto 0;
   max-width: 600px;
-}
-
-.options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .btn.select {

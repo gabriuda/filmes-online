@@ -142,6 +142,7 @@ export default {
       this.$store.commit("UPDATE_FILME", null);
       try {
         await this.$store.dispatch("getFilme", this.id);
+        document.title = "Assistir - " + this.filme.title;
       } catch (error) {
         // console.log(error);
       }
@@ -317,6 +318,7 @@ h2 {
 .mais {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  align-items: baseline;
   margin: 60px auto;
   gap: 30px;
 }

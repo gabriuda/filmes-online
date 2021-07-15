@@ -6,13 +6,13 @@
         class="filme"
         v-for="(filme, index) in filmesDaPessoa.results"
         :key="index"
-        :class="{ ativo: filme.backdrop_path }"
+        :class="{ ativo: filme.poster_path }"
       >
         <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
           <b class="filme-titulo">{{ filme.title }}</b>
           <img
-            v-if="filme.backdrop_path"
-            :src="filme.backdrop_path | filmeImagem"
+            v-if="filme.poster_path"
+            :src="filme.poster_path | filmeImagem"
             :alt="filme.title"
           />
           <p v-if="filme.release_date" class="filme-data">
