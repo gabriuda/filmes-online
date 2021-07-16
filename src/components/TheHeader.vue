@@ -211,7 +211,6 @@ header.active .open-menu {
   .search-menu {
     display: block;
   }
-
   .menu ul li a {
     font-size: 1.2rem;
   }
@@ -274,19 +273,11 @@ header.active .open-menu {
     display: initial;
   }
   .menu {
+    padding: 0px;
     display: flex;
     align-items: center;
     gap: 16px;
     flex-direction: row-reverse;
-  }
-  .menu ul {
-    display: block;
-  }
-  .menu ul li {
-    padding: 0 20px;
-  }
-  .menu ul li + li {
-    margin-top: 20px;
   }
   .open-menu {
     display: block;
@@ -301,21 +292,33 @@ header.active .open-menu {
   .menu ul {
     position: fixed;
     top: 0;
-    transition: 0.4s;
+    transition: 0.2s;
     right: 0px;
     transform: translate3d(500px, 0px, 0px);
     height: 100vh;
-    padding-top: 20px;
     box-shadow: -20px 0px 20px 0 rgba(0, 0, 0, 0.35);
     background: var(--background);
     z-index: 999;
+    width: 260px;
+    padding-top: 80px;
+    display: block;
   }
-  .menu ul li:first-child {
-    margin-top: 60px;
+  .menu ul li {
+    transition: 0.2s;
+    text-align: start;
+  }
+  .menu ul li a {
+    text-align: start;
+    padding: 10px 20px;
+  }
+  .menu ul li:hover {
+    background: #273740;
+  }
+  .menu ul li:hover a {
+    color: var(--branco);
   }
   .menu ul.active {
     transform: translate3d(0px, 0px, 0px);
-    z-index: 999;
   }
 }
 </style>
