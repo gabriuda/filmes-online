@@ -69,7 +69,8 @@ export default {
 </script>
 
 <style>
-.filmes-container {
+.filmes-container,
+.filmes-container-carregando {
   margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -80,13 +81,25 @@ export default {
   align-items: start;
 }
 
-.filme {
+.filme,
+.filme-carregando {
   max-width: 300px;
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: 0.2s;
   border: 2px solid transparent;
+}
+
+.filme-carregando h2 {
+  display: none;
+}
+
+.filme-carregando {
+  padding: 155px 110px;
+  background: linear-gradient(45deg, #bbb 40%, #fff 60%);
+  background-size: 300% 300%;
+  animation: bg-colors 2s infinite alternate;
 }
 
 .filme:hover {
@@ -144,7 +157,8 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .filmes-container {
+  .filmes-container,
+  .filmes-container-carregando {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
   }
