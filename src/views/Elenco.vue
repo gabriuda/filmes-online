@@ -56,6 +56,7 @@ export default {
         )
         .then((response) => {
           this.filmesDaPessoa = response.data;
+          document.title = "Elenco - " + this.pessoa.name;
         });
     },
     puxarPessoa() {

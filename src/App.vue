@@ -123,7 +123,7 @@ main {
 }
 
 .content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -247,6 +247,18 @@ main {
 .v-enter-active,
 .v-leave-active {
   transition: all 0.3s;
+}
+
+@keyframes bg-colors {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .filme {

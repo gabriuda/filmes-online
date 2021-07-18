@@ -26,7 +26,6 @@
         <FilmesPaginacao :totalFilmes="filmesPopulares.total_pages" />
       </div>
     </section>
-    <PageLoading v-else />
   </transition>
 </template>
 

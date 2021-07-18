@@ -5,23 +5,22 @@
       <li><router-link to="/categorias">Categorias</router-link></li>
     </ul>
     <FilmesListaCategorias />
-  </section>  
+  </section>
 </template>
 
 <script>
-  import FilmesListaCategorias from "@/components/FilmesListaCategorias.vue";
+import FilmesListaCategorias from "@/components/FilmesListaCategorias.vue";
 
-  export default {
-    name: "Categorias",
-    components: {
-      FilmesListaCategorias,
-    },
-    created() {
-      document.title = "Categorias";
-    }
-  }
+export default {
+  name: "Categorias",
+  components: {
+    FilmesListaCategorias,
+  },
+  created() {
+    document.title = "Categorias";
+  },
+};
 </script>
 
 <style>
-
 </style>
