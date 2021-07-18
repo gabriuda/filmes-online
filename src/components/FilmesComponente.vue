@@ -7,11 +7,14 @@
       }"
       :nav="false"
       :dots="false"
-      :margin="15"
+      :margin="10"
+      :stagePadding="120"
+      :autoplay="true"
+      :autoplayTimeout="3500"
+      :autoplayHoverPause="true"
       class="filmes-carousel"
       v-if="carousel && listaFilmes"
     >
-      <template slot="prev"><span class="prev"></span></template>
       <div
         class="filme"
         v-for="(filme, index) in listaFilmes.results"
@@ -30,7 +33,6 @@
           </p>
         </router-link>
       </div>
-      <template slot="next"><span class="next"></span></template>
     </carousel>
     <div class="filmes-container" v-else-if="!carousel && listaFilmes">
       <div
@@ -69,20 +71,18 @@ export default {
 </script>
 
 <style>
-.filmes-container,
-.filmes-container-carregando {
+.filmes-container {
   margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 15px;
-  justify-items: start;
+  grid-gap: 10px;
+  justify-items: center;
   align-content: start;
   justify-content: start;
-  align-items: start;
+  align-items: center;
 }
 
-.filme,
-.filme-carregando {
+.filme {
   max-width: 300px;
   position: relative;
   overflow: hidden;
@@ -91,16 +91,9 @@ export default {
   border: 2px solid transparent;
 }
 
-.filme-carregando h2 {
-  display: none;
-}
-
-.filme-carregando {
-  padding: 155px 110px;
-  background: linear-gradient(45deg, #aaa 40%, #fff 60%);
-  background-size: 300% 300%;
-  animation: bg-colors 2s infinite alternate;
-  opacity: 0.8;
+.filme,
+.filme a img {
+  height: 330px;
 }
 
 .filme:hover {
@@ -158,8 +151,7 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .filmes-container,
-  .filmes-container-carregando {
+  .filmes-container {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
   }
@@ -197,36 +189,26 @@ export default {
   display: block;
   position: relative;
   margin: 0px 0 30px;
+  overflow: hidden;
 }
 
-.prev {
-  background: rgba(0, 0, 0, 0.7) url("../assets/prev.svg") no-repeat center
-    center;
-}
-
-.next {
-  background: rgba(0, 0, 0, 0.7) url("../assets/next.svg") no-repeat center
-    center;
-}
-
-.prev,
-.next {
-  width: 30px;
+.filmes-carousel:before,
+.filmes-carousel:after {
+  content: "";
   position: absolute;
   top: 0;
-  bottom: 0;
-  z-index: 100;
-  transition: 0.2s;
-  cursor: pointer;
-  background-size: 12px;
+  width: 10px;
+  height: 100%;
+  background: var(--background);
+  box-shadow: 0px 0px 10px 10px var(--background);
+  z-index: 10;
 }
 
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+.filmes-carousel::before {
+  left: 0;
 }
 
-.next {
+.filmes-carousel::after {
   right: 0;
 }
 </style>

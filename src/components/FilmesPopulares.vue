@@ -26,13 +26,6 @@
         <FilmesPaginacao :totalFilmes="filmesPopulares.total_pages" />
       </div>
     </section>
-    <section v-else>
-      <div class="filmes-container-carregando">
-        <div class="filme-carregando" v-for="(n, i) in 20" :key="i">
-          <h2>{{ n }}</h2>
-        </div>
-      </div>
-    </section>
   </transition>
 </template>
 

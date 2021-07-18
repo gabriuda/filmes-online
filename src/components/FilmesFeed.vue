@@ -41,6 +41,7 @@
 
   <!-- 
     Fazer listas com atores e filmes para escolher, tipo Conecta Oi
+    | Filme | Ator/Atriz | -> tab
    -->
 </template>
 
