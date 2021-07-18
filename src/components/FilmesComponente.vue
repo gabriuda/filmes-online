@@ -97,9 +97,10 @@ export default {
 
 .filme-carregando {
   padding: 155px 110px;
-  background: linear-gradient(45deg, #bbb 40%, #fff 60%);
+  background: linear-gradient(45deg, #aaa 40%, #fff 60%);
   background-size: 300% 300%;
   animation: bg-colors 2s infinite alternate;
+  opacity: 0.8;
 }
 
 .filme:hover {

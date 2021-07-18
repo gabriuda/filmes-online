@@ -38,7 +38,7 @@
               </div>
             </form>
           </li>
-          <li><router-link to="/?page=1">Início</router-link></li>
+          <li><router-link to="/?page=1">Início &#xf015;</router-link></li>
           <li><router-link to="/categorias">Categorias</router-link></li>
           <li><router-link to="/populares/?page=1">Populares</router-link></li>
           <li><router-link to="/copyright">Copyright</router-link></li>
