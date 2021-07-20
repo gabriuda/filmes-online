@@ -1,13 +1,15 @@
 <template>
   <transition mode="out-in">
     <section>
-      <div v-if="filmesBuscados && filmesBuscados.results.length > 0">
+      <div
+        v-if="
+          (filmesBuscados || elencoBuscado) &&
+          (filmesBuscados.results.length > 0 ||
+            elencoBuscado.results.length > 0)
+        "
+      >
         <div class="opcoes">
-          <p>
-            Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
-              query
-            }}"
-          </p>
+          <p>Resultados para: "{{ query }}"</p>
           <ul class="escolher">
             <li>
               <input
@@ -18,7 +20,9 @@
                 v-model="conteudo"
                 checked
               />
-              <label for="filmes">Filmes</label>
+              <label for="filmes"
+                >Filmes ({{ filmesBuscados.results.length }})</label
+              >
             </li>
             <li>
               <input
@@ -29,7 +33,9 @@
                 v-model="conteudo"
                 checked
               />
-              <label for="elenco">Ator/Atriz</label>
+              <label for="elenco"
+                >Ator/Atriz ({{ elencoBuscado.results.length }})</label
+              >
             </li>
           </ul>
         </div>
@@ -55,10 +61,10 @@
             </div>
           </div>
           <div v-else-if="conteudo === 2">
-            <p>cui</p>
+            <ElencoFeed />
           </div>
         </transition>
-        <div class="paginacao">
+        <div class="paginacao" v-if="filmesBuscados && conteudo === 1">
           <FilmesPaginacao :totalFilmes="filmesBuscados.total_pages" />
         </div>
       </div>
@@ -76,6 +82,7 @@
 
 <script>
 import FilmesPaginacao from "@/components/FilmesPaginacao.vue";
+import ElencoFeed from "@/components/ElencoFeed.vue";
 
 export default {
   name: "FilmesFeed",
@@ -86,6 +93,7 @@ export default {
   },
   components: {
     FilmesPaginacao,
+    ElencoFeed,
   },
   computed: {
     url() {
@@ -101,15 +109,21 @@ export default {
     filmesBuscados() {
       return this.$store.state.filmesBuscados;
     },
+    elencoBuscado() {
+      return this.$store.state.elencoBuscado;
+    },
   },
   watch: {
     url() {
       this.$store.commit("UPDATE_FILMES_BUSCADOS", null);
       this.$store.dispatch("getFilmesBuscados", this.url);
+      this.$store.commit("UPDATE_ELENCO_BUSCADO", null);
+      this.$store.dispatch("getElencoBuscado", this.url);
     },
   },
   created() {
     this.$store.dispatch("getFilmesBuscados", this.url);
+    this.$store.dispatch("getElencoBuscado", this.url);
   },
 };
 </script>
@@ -169,5 +183,11 @@ p {
 label:hover {
   opacity: 1;
   border-color: var(--branco);
+}
+
+@media screen and (max-width: 549px) {
+  .opcoes {
+    margin: 0px 0;
+  }
 }
 </style>

@@ -157,7 +157,7 @@ header.active .open-menu {
 
 .header-container {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1400px;
   display: flex;
   align-items: center;
   justify-content: space-between;
