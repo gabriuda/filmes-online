@@ -2,13 +2,39 @@
   <transition mode="out-in">
     <section>
       <div v-if="filmesBuscados && filmesBuscados.results.length > 0">
-        <p>
-          Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
-            query
-          }}"
-        </p>
+        <div class="opcoes">
+          <p>
+            Encontramos {{ filmesBuscados.total_results }} resultados para: "{{
+              query
+            }}"
+          </p>
+          <ul class="escolher">
+            <li>
+              <input
+                type="radio"
+                id="filmes"
+                name="conteudo"
+                :value="1"
+                v-model="conteudo"
+                checked
+              />
+              <label for="filmes">Filmes</label>
+            </li>
+            <li>
+              <input
+                type="radio"
+                id="elenco"
+                name="conteudo"
+                :value="2"
+                v-model="conteudo"
+                checked
+              />
+              <label for="elenco">Ator/Atriz</label>
+            </li>
+          </ul>
+        </div>
         <transition mode="out-in">
-          <div class="filmes-container" v-if="filmesBuscados">
+          <div class="filmes-container" v-if="filmesBuscados && conteudo === 1">
             <div
               class="filme"
               v-for="(filme, index) in filmesBuscados.results"
@@ -27,6 +53,9 @@
                 </p>
               </router-link>
             </div>
+          </div>
+          <div v-else-if="conteudo === 2">
+            <p>cui</p>
           </div>
         </transition>
         <div class="paginacao">
@@ -50,6 +79,11 @@ import FilmesPaginacao from "@/components/FilmesPaginacao.vue";
 
 export default {
   name: "FilmesFeed",
+  data() {
+    return {
+      conteudo: 1,
+    };
+  },
   components: {
     FilmesPaginacao,
   },
@@ -93,5 +127,47 @@ p {
 
 .btn.select {
   position: initial;
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0px 30px;
+  margin: 30px 0;
+}
+
+.escolher {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.escolher li input {
+  display: none;
+}
+
+.escolher li label {
+  font-family: "Karla", sans-serif;
+  display: block;
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--azul);
+  color: var(--branco);
+  transition: 0.2s;
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.escolher li input:checked ~ label,
+label:hover {
+  opacity: 1;
+  border-color: var(--branco);
 }
 </style>
