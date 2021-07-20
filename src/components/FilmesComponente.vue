@@ -1,39 +1,61 @@
 <template>
   <transition mode="out-in" v-if="carousel && listaFilmes">
-    <carousel
-      :responsive="{
-        600: { items: 3 },
-        1000: { items: 5 },
-      }"
-      :nav="false"
-      :dots="false"
-      :margin="10"
-      :stagePadding="120"
-      :autoplay="true"
-      :autoplayTimeout="3500"
-      :autoplayHoverPause="true"
-      class="filmes-carousel"
-      v-if="carousel && listaFilmes"
-    >
-      <div
-        class="filme"
-        v-for="(filme, index) in listaFilmes.results"
-        :key="index"
-        :class="{ ativo: filme.poster_path }"
+    <div v-if="carousel && listaFilmes">
+      <carousel
+        :responsive="{
+          1000: { items: 5 },
+        }"
+        :nav="false"
+        :dots="false"
+        :margin="10"
+        :stagePadding="120"
+        :autoplay="true"
+        :autoplayTimeout="3500"
+        :autoplayHoverPause="true"
+        class="filmes-carousel"
       >
-        <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
-          <b class="filme-titulo">{{ filme.title }}</b>
-          <img
-            v-if="filme.poster_path"
-            :src="filme.poster_path | filmeImagem"
-            :alt="filme.title"
-          />
-          <p v-if="filme.release_date" class="filme-data">
-            {{ filme.release_date.slice(0, 4) }}
-          </p>
-        </router-link>
+        <div
+          class="filme"
+          v-for="(filme, index) in listaFilmes.results"
+          :key="index"
+          :class="{ ativo: filme.poster_path }"
+        >
+          <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
+            <b class="filme-titulo">{{ filme.title }}</b>
+            <img
+              v-if="filme.poster_path"
+              :src="filme.poster_path | filmeImagem"
+              :alt="filme.title"
+            />
+            <p v-if="filme.release_date" class="filme-data">
+              {{ filme.release_date.slice(0, 4) }}
+            </p>
+          </router-link>
+        </div>
+      </carousel>
+      <div class="filmes-carousel-responsivo">
+        <ul>
+          <li
+            class="filme"
+            v-for="(filme, index) in listaFilmes.results"
+            :key="index"
+            :class="{ ativo: filme.poster_path }"
+          >
+            <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
+              <b class="filme-titulo">{{ filme.title }}</b>
+              <img
+                v-if="filme.poster_path"
+                :src="filme.poster_path | filmeImagem"
+                :alt="filme.title"
+              />
+              <p v-if="filme.release_date" class="filme-data">
+                {{ filme.release_date.slice(0, 4) }}
+              </p>
+            </router-link>
+          </li>
+        </ul>
       </div>
-    </carousel>
+    </div>
     <div class="filmes-container" v-else-if="!carousel && listaFilmes">
       <div
         class="filme"
@@ -150,10 +172,40 @@ export default {
   font-family: "Karla", sans-serif;
 }
 
-@media screen and (max-width: 600px) {
+.filmes-carousel-responsivo ul {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .filmes-carousel,
+  .filmes-carousel:before,
+  .filmes-carousel:after,
+  .filmes-carousel * {
+    display: none;
+  }
+  .filmes-carousel-responsivo ul {
+    display: flex;
+    gap: 10px;
+  }
+  .filmes-carousel-responsivo ul li {
+    flex: 1 0 180px;
+  }
+  .filmes-carousel-responsivo ul li a img,
+  .filmes-carousel-responsivo ul li {
+    height: 270px;
+  }
+  .filmes-carousel-responsivo {
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: ms-autohiding-scrollbar;
+  }
+}
+
+@media screen and (max-width: 700px) {
   .filmes-container {
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 6px;
   }
   .filme-titulo {
     padding: 5px;
@@ -163,20 +215,15 @@ export default {
     font-size: 0.9rem;
     bottom: 3%;
   }
-  .filme img {
-    height: 200px;
-  }
-}
 
-@media screen and (max-width: 460px) {
+  .filme,
+  .filme a img {
+    height: 180px;
+  }
   @keyframes showTitle {
     to {
       padding: 6px;
     }
-  }
-
-  .filme img {
-    height: 170px;
   }
   .filme-data,
   .filme-titulo {
@@ -185,10 +232,19 @@ export default {
   }
 }
 
+@media screen and (max-width: 460px) {
+  .filmes-carousel-responsivo ul li {
+    flex: 1 0 160px;
+  }
+  .filmes-carousel-responsivo ul li a img,
+  .filmes-carousel-responsivo ul li {
+    height: 240px;
+  }
+}
+
 .filmes-carousel {
   display: block;
   position: relative;
-  margin: 0px 0 30px;
   overflow: hidden;
 }
 
@@ -204,11 +260,11 @@ export default {
   z-index: 10;
 }
 
-.filmes-carousel::before {
+.filmes-carousel:before {
   left: 0;
 }
 
-.filmes-carousel::after {
+.filmes-carousel:after {
   right: 0;
 }
 </style>

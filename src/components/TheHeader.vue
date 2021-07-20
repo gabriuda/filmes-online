@@ -143,17 +143,12 @@ header.active {
 }
 
 header.active .menu ul li a {
-  padding: 10px 0px;
   font-size: 1.2rem;
 }
 
 .header-container a,
 .open-menu {
   transition: 0.2s;
-}
-
-header.active .header-container a {
-  width: 100px;
 }
 
 header.active .open-menu {
@@ -306,15 +301,16 @@ header.active .open-menu {
   .menu ul li {
     transition: 0.2s;
     text-align: start;
+    padding: 0px;
   }
   .menu ul li a {
     text-align: start;
-    padding: 10px 20px;
+    padding: 20px;
   }
-  .menu ul li:hover {
+  .menu ul li a:hover {
     background: #273740;
   }
-  .menu ul li:hover a {
+  .menu ul li a:hover a {
     color: var(--branco);
   }
   .menu ul.active {
