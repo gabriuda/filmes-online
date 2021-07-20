@@ -9,6 +9,7 @@ export default new Vuex.Store({
     categorias: null,
     filme: null,
     filmesBuscados: null,
+    elencoBuscado: null,
     filmesPopulares: null,
     filmesDaCategoria: null,
   },
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     UPDATE_FILMES_DA_CATEGORIA(state, payload) {
       state.filmesDaCategoria = payload;
+    },
+    UPDATE_ELENCO_BUSCADO(state, payload) {
+      state.elencoBuscado = payload;
     },
   },
   actions: {
@@ -51,11 +55,17 @@ export default new Vuex.Store({
           context.commit("UPDATE_FILMES_BUSCADOS", response.data);
         });
     },
+    getElencoBuscado(context, payload) {
+      return tmdbApi
+        .get(`/search/person?${payload}&api_key=${apiKey}&${language}`)
+        .then((response) => {
+          context.commit("UPDATE_ELENCO_BUSCADO", response.data);
+        });
+    },
     getFilmesPopulares(context, payload) {
       return tmdbApi
         .get(
-          `/movie/popular?api_key=${apiKey}&${language}${
-            payload ? payload : ""
+          `/movie/popular?api_key=${apiKey}&${language}${payload ? payload : ""
           }`
         )
         .then((response) => {
@@ -65,8 +75,7 @@ export default new Vuex.Store({
     getFilmesDaCategoria(context, idFilme, page) {
       return tmdbApi
         .get(
-          `/discover/movie?page=${
-            page ? page : 1
+          `/discover/movie?page=${page ? page : 1
           }&api_key=${apiKey}&with_genres=${idFilme}&${language}`
         )
         .then((response) => {

@@ -2,7 +2,11 @@
   <div>
     <form>
       <div class="search">
-        <input type="text" placeholder="Buscar filme..." v-model="termo" />
+        <input
+          type="text"
+          placeholder="Buscar filme, ator/atriz..."
+          v-model="termo"
+        />
         <input type="submit" value="Buscar" @click.prevent="buscarFilmes" />
       </div>
     </form>

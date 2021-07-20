@@ -23,7 +23,10 @@
         </div>
       </div>
       <div class="paginacao">
-        <FilmesPaginacao :totalFilmes="filmesPopulares.total_pages" />
+        <FilmesPaginacao
+          :totalFilmes="filmesPopulares.total_pages"
+          :filmesPorPagina="40"
+        />
       </div>
     </section>
   </transition>
