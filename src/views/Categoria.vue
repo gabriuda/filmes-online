@@ -10,16 +10,39 @@
       </li>
     </ul>
     <div class="opcoes">
-      <h1>{{ categoriaNome }}</h1>
-      <select class="btn select" v-if="categorias" @change="mudarRota">
-        <option
-          v-for="(categoria, index) in categorias.genres"
-          :value="categoria.id"
-          :key="index"
-        >
-          {{ categoria.name }}
-        </option>
-      </select>
+      <h1 v-if="!accAtivo">{{ categoriaNome }}</h1>
+      <h1 v-else>Escolha</h1>
+      <div class="opcoes-content">
+        <transition>
+          <div v-if="accAtivo">
+            <ul class="acumulado">
+              <li v-for="(categoria, index) in categorias.genres" :key="index">
+                <input
+                  type="checkbox"
+                  :id="categoria.name"
+                  name="categorias"
+                  :value="categoria.id"
+                  v-model="categoriaAcc"
+                />
+                <label :for="categoria.name">{{ categoria.name }}</label>
+              </li>
+            </ul>
+          </div>
+        </transition>
+        <div class="acc">
+          <label for="acc"><p>Acumular</p></label>
+          <input type="checkbox" name="acc" id="acc" v-model="accAtivo" />
+        </div>
+        <select class="btn select" v-if="categorias" @change="mudarRota">
+          <option
+            v-for="(categoria, index) in categorias.genres"
+            :value="categoria.id"
+            :key="index"
+          >
+            {{ categoria.name }}
+          </option>
+        </select>
+      </div>
     </div>
     <transition mode="out-in">
       <div v-if="filmesDaCategoria">
@@ -42,6 +65,9 @@
               </p>
             </router-link>
           </div>
+        </div>
+        <div v-if="filmesDaCategoria.total_results === 0">
+          <p>Sem resultados.</p>
         </div>
         <div class="paginacao">
           <FilmesPaginacao
@@ -69,6 +95,8 @@ export default {
     return {
       idFilme: this.id,
       filmesDaCategoria: null,
+      accAtivo: false,
+      categoriaAcc: [],
     };
   },
   computed: {
@@ -96,7 +124,9 @@ export default {
         tmdbApi
           .get(
             `/discover/movie?page=${this.pagina ? this.pagina : 1}
-              &api_key=${apiKey}&with_genres=${this.idFilme}&${language}`
+              &api_key=${apiKey}&with_genres=${
+              this.categoriaAcc.length ? this.categoriaAcc : this.idFilme
+            }&${language}`
           )
           .then((response) => {
             this.filmesDaCategoria = response.data;
@@ -126,6 +156,16 @@ export default {
     pagina() {
       this.puxarFilmesECategorias();
     },
+    categoriaAcc() {
+      this.puxarFilmesECategorias();
+    },
+    accAtivo() {
+      if (this.accAtivo === false) {
+        while (this.categoriaAcc.length) {
+          this.categoriaAcc.pop();
+        }
+      }
+    },
   },
   created() {
     document.title = "Categoria";
@@ -140,6 +180,67 @@ export default {
 }
 .opcoes {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid var(--branco);
+  padding-bottom: 10px;
+  gap: 10px;
+}
+
+.opcoes h1 {
+  border: none;
+  flex: 1;
+}
+
+.btn {
+  position: relative;
+}
+
+.opcoes-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+}
+
+.acc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.acc label {
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.acumulado {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  gap: 6px;
+}
+
+.acumulado li label {
+  padding: 4px 8px;
+  border: 1px solid var(--branco);
+  font-size: 0.8rem;
+  font-family: "Karla", sans-serif;
+  display: block;
+  color: var(--branco);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.acumulado li input {
+  display: none;
+}
+
+.acumulado li input:checked ~ label,
+.acumulado li label:hover {
+  background: var(--azul);
 }
 
 .paginacao {
