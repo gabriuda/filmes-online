@@ -21,7 +21,7 @@
                 checked
               />
               <label for="filmes"
-                >Filmes ({{ filmesBuscados.results.length }})</label
+                >Filmes ({{ filmesBuscados.total_results }})</label
               >
             </li>
             <li>
@@ -34,7 +34,7 @@
                 checked
               />
               <label for="elenco"
-                >Ator/Atriz ({{ elencoBuscado.results.length }})</label
+                >Ator/Atriz ({{ elencoBuscado.total_results }})</label
               >
             </li>
           </ul>
@@ -73,11 +73,6 @@
       </div>
     </section>
   </transition>
-
-  <!-- 
-    Fazer listas com atores e filmes para escolher, tipo Conecta Oi
-    | Filme | Ator/Atriz | -> tab
-   -->
 </template>
 
 <script>
@@ -165,8 +160,9 @@ p {
 
 .escolher li label {
   font-family: "Karla", sans-serif;
+  font-size: 0.9rem;
   display: block;
-  width: 120px;
+  width: 130px;
   height: 40px;
   text-align: center;
   display: flex;
@@ -175,8 +171,12 @@ p {
   border: 1px solid var(--azul);
   color: var(--branco);
   transition: 0.2s;
+  padding: 4px;
   opacity: 0.75;
   cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .escolher li input:checked ~ label,
