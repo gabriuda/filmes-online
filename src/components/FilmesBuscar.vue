@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <div class="search">
+      <div class="search" :class="{ header_search: header }">
         <input
           type="text"
           placeholder="Buscar filme, ator/atriz..."
@@ -28,6 +28,7 @@ import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {
   name: "FilmesBuscar",
+  props: ["header"],
   data() {
     return {
       termo: "",
@@ -79,6 +80,12 @@ export default {
 .search input[type="text"] {
   padding: 18px;
 }
+
+.header_search input[type="text"] {
+  padding: 10px;
+  font-size: 0.8rem;
+}
+
 @media screen and (max-width: 600px) {
   .search input[type="text"] {
     padding: 10px;

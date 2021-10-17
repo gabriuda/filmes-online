@@ -60,15 +60,9 @@
                 <div class="servidores" v-if="assistir">
                   <a
                     target="_blank"
-                    :href="`https://hdfog.club/video/player.php?id=${filme.imdb_id}&site=Online%20Filmes&color=1B262C`"
+                    :href="`https://embed.warezcdn.com/filme/${filme.imdb_id}`"
                     class="btn"
                     >Servidor 1</a
-                  >
-                  <a
-                    target="_blank"
-                    :href="`https://api.obaflix.com/embed/${filme.imdb_id}`"
-                    class="btn"
-                    >Servidor 2</a
                   >
                 </div>
               </transition>

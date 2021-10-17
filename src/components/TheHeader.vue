@@ -39,8 +39,7 @@
             </form>
           </li>
           <li>
-            <router-link to="/?page=1"
-              >Início
+            <router-link to="/?page=1">
               <svg
                 width="20"
                 height="20"
@@ -52,13 +51,12 @@
                   class="icon-header"
                   d="M4 10V19H16V10M1 10L10 1L19 10"
                   stroke="#EEEBDD"
-                />
-              </svg>
+                /></svg
+              >Início
             </router-link>
           </li>
           <li>
-            <router-link to="/categorias"
-              >Categorias
+            <router-link to="/categorias">
               <svg
                 width="20"
                 height="23"
@@ -77,14 +75,13 @@
                   r="0.5"
                   transform="rotate(30 10.9296 8.86581)"
                   fill="#EEEBDD"
-                />
-              </svg>
+                /></svg
+              >Categorias
             </router-link>
           </li>
-          <li><router-link to="/populares/?page=1">Populares</router-link></li>
+          <!-- <li><router-link to="/populares/?page=1">Populares</router-link></li> -->
           <li>
-            <router-link to="/copyright"
-              >Copyright
+            <router-link to="/copyright">
               <svg
                 width="18"
                 height="20"
@@ -102,10 +99,15 @@
                 <path
                   d="M8.68 6.18C9.7 6.18 10.51 6.444 11.11 6.972C11.71 7.488 12.1 8.136 12.28 8.916L10.84 9.042C10.684 8.538 10.432 8.148 10.084 7.872C9.736 7.584 9.352 7.44 8.932 7.44C8.164 7.44 7.54 7.728 7.06 8.304C6.592 8.88 6.358 9.666 6.358 10.662C6.358 11.646 6.586 12.438 7.042 13.038C7.51 13.638 8.086 13.938 8.77 13.938C9.466 13.938 9.982 13.782 10.318 13.47C10.666 13.146 10.84 12.69 10.84 12.102H12.298C12.298 13.026 11.974 13.776 11.326 14.352C10.69 14.916 9.856 15.198 8.824 15.198C7.732 15.198 6.802 14.784 6.034 13.956C5.278 13.128 4.9 12.03 4.9 10.662C4.9 9.282 5.278 8.19 6.034 7.386C6.79 6.582 7.672 6.18 8.68 6.18Z"
                   fill="white"
-                />
-              </svg>
+                /></svg
+              >Copyright
             </router-link>
           </li>
+          <transition mode="out-in">
+            <li class="search-menu-desktop" v-if="isPageToSearch">
+              <FilmesBuscar :header="true" />
+            </li>
+          </transition>
         </ul>
       </nav>
     </div>
@@ -133,6 +135,12 @@ export default {
     },
     url() {
       return this.$route.path;
+    },
+    isPageToSearch() {
+      if (this.url === "/pesquisar" || this.url === "/") {
+        return false;
+      }
+      return true;
     },
   },
   methods: {
@@ -202,12 +210,16 @@ header {
 
 header.active {
   padding: 10px;
-  background: var(--background);
-  box-shadow: 0px 0px 80px 0px rgba(30, 60, 90, 0.5);
+  background: var(--header_active);
+  box-shadow: var(--header_active_shadow);
+}
+
+header.active .logo {
+  max-width: 100px;
 }
 
 header.active .menu ul li a {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .header-container a,
@@ -244,7 +256,7 @@ header.active .open-menu {
   padding: 10px;
   font-family: "Karla", sans-serif;
   color: var(--branco);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -273,6 +285,9 @@ header.active .open-menu {
 }
 
 @media screen and (max-width: 920px) {
+  .search-menu-desktop {
+    display: none;
+  }
   .search-menu {
     display: block;
   }
@@ -362,7 +377,7 @@ header.active .open-menu {
     transform: translate3d(500px, 0px, 0px);
     height: 100vh;
     box-shadow: -20px 0px 20px 0 rgba(0, 0, 0, 0.35);
-    background: var(--background);
+    background: var(--header_active);
     z-index: 999;
     width: 260px;
     padding-top: 80px;
