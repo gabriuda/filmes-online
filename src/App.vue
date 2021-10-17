@@ -52,6 +52,8 @@ img {
 /* Colors */
 :root {
   --background: #1b262c;
+  --header_active: #182329;
+  --header_active_shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.5);
   --branco: #eeebdd;
   --shadow: 0px 4px 8px 0px rgba(30, 60, 90, 0.15);
   --shadow_hover: 0px 16px 26px 0px rgba(30, 60, 90, 0.75);
@@ -139,12 +141,12 @@ main {
 .search input[type="text"] {
   outline: none;
   padding: 10px 20px;
-  background: var(--background);
   border: 2px solid var(--branco);
   font-family: "Karla", sans-serif;
   color: var(--branco);
   font-size: 1rem;
   transition: 0.2s;
+  background: transparent;
 }
 
 .search input[type="text"]:focus,
@@ -154,7 +156,7 @@ main {
 
 .search input[type="submit"] {
   padding: 10px 35px;
-  background: var(--background) url("./assets/lupa.svg") no-repeat center center;
+  background: transparent url("./assets/lupa.svg") no-repeat center center;
   text-indent: -150px;
   border: 2px solid var(--branco);
   border-left: none;
