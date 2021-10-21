@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FilmesComponente from "./FilmesComponente.vue";
+import FilmesComponente from "@/components/filmes/FilmesComponente.vue";
 import { tmdbApi } from "@/services/index.js";
 
 export default {

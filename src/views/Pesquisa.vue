@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import FilmesBuscar from "@/components/FilmesBuscar.vue";
-import FilmesFeed from "@/components/FilmesFeed.vue";
+import FilmesBuscar from "@/components/filmes/FilmesBuscar.vue";
+import FilmesFeed from "@/components/filmes/FilmesFeed.vue";
 
 export default {
   name: "Pesquisa",

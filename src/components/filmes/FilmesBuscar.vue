@@ -4,7 +4,7 @@
       <div class="search" :class="{ header_search: header }">
         <input
           type="text"
-          placeholder="Buscar filme, ator/atriz..."
+          placeholder="Buscar filme, serie ou anime..."
           v-model="termo"
         />
         <input type="submit" value="Buscar" @click.prevent="buscarFilmes" />

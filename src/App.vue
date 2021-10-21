@@ -220,9 +220,6 @@ main {
 }
 
 .btn.select {
-  position: absolute;
-  right: 0;
-  top: 40%;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: var(--background) url("./assets/arrow-down.svg") no-repeat;

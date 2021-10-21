@@ -2,9 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Pesquisa from "../views/Pesquisa.vue";
+import Filmes from "../views/Filmes.vue";
+import Series from "../views/Series.vue";
 import Categorias from "../views/Categorias.vue";
 import Categoria from "../views/Categoria.vue";
 import Filme from "../views/Filme.vue";
+import Serie from "../views/Serie.vue";
 import Populares from "../views/Populares.vue";
 import Copyright from "../views/Copyright.vue";
 import Elenco from "../views/Elenco.vue";
@@ -29,6 +32,16 @@ const routes = [
     component: Pesquisa,
   },
   {
+    path: "/movie",
+    name: "Filmes",
+    component: Filmes,
+  },
+  {
+    path: "/tv",
+    name: "Series",
+    component: Series,
+  },
+  {
     path: "/populares",
     name: "Populares",
     component: Populares,
@@ -45,9 +58,15 @@ const routes = [
     props: true,
   },
   {
-    path: "/filme/:id",
+    path: "/movie/:id",
     name: "filmes",
     component: Filme,
+    props: true,
+  },
+  {
+    path: "/tv/:id",
+    name: "series",
+    component: Serie,
     props: true,
   },
   {

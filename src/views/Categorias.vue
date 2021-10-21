@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import FilmesListaCategorias from "@/components/FilmesListaCategorias.vue";
+import FilmesListaCategorias from "@/components/filmes/FilmesListaCategorias.vue";
 
 export default {
   name: "Categorias",

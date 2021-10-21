@@ -12,19 +12,18 @@
 </template>
 
 <script>
-  import FilmesPopulares from "@/components/FilmesPopulares.vue";
+import FilmesPopulares from "@/components/filmes/FilmesPopulares.vue";
 
-  export default {
-    name: "Populares",
-    components: {
-      FilmesPopulares
-    },
-    created() {
-      document.title = "Filmes Populares";
-    }
-  }
+export default {
+  name: "Populares",
+  components: {
+    FilmesPopulares,
+  },
+  created() {
+    document.title = "Filmes Populares";
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

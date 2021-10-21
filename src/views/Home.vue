@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import FilmesBuscar from "@/components/FilmesBuscar.vue";
-import FilmesComponente from "@/components/FilmesComponente.vue";
+import FilmesBuscar from "@/components/filmes/FilmesBuscar.vue";
+import FilmesComponente from "@/components/filmes/FilmesComponente.vue";
 import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {

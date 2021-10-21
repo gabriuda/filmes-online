@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import FilmesPaginacao from "@/components/FilmesPaginacao.vue";
+import FilmesPaginacao from "@/components/filmes/FilmesPaginacao.vue";
 
 export default {
   name: "ElencoFeed",

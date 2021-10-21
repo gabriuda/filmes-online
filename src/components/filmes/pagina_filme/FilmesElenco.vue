@@ -29,7 +29,7 @@ import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {
   name: "FilmesElenco",
-  props: ["id"],
+  props: ["id", "path", "url"],
   data() {
     return {
       elenco: null,
@@ -38,7 +38,9 @@ export default {
   methods: {
     puxarElenco() {
       tmdbApi
-        .get(`/movie/${this.id}/casts?api_key=${apiKey}&${language}`)
+        .get(
+          `${this.path}/${this.id}/${this.url}?api_key=${apiKey}&${language}`
+        )
         .then((response) => (this.elenco = response.data));
     },
   },

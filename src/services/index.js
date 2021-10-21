@@ -18,6 +18,10 @@ export const tmdbApi = {
     );
     return response.data;
   },
+  async getFilmesPopulares() {
+    const response = await axiosInstance.get(`/movie/popular?api_key=${apiKey}&${language}`);
+    return response.data;
+  },
   async getFilmesCategoria(endpoint) {
     const response = await axiosInstance.get(
       `/discover/movie?api_key=${apiKey}&with_genres=${endpoint}&${language}`

@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import FilmesPaginacao from "@/components/FilmesPaginacao.vue";
+import FilmesPaginacao from "@/components/filmes/FilmesPaginacao.vue";
 import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {

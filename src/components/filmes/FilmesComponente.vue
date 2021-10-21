@@ -20,8 +20,9 @@
           :key="index"
           :class="{ ativo: filme.poster_path }"
         >
-          <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
-            <b class="filme-titulo">{{ filme.title }}</b>
+          <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
+            <b v-if="path !== '/tv'" class="filme-titulo">{{ filme.title }}</b>
+            <b v-else class="filme-titulo">{{ filme.name }}</b>
             <img
               v-if="filme.poster_path"
               :src="filme.poster_path | filmeImagem"
@@ -41,7 +42,7 @@
             :key="index"
             :class="{ ativo: filme.poster_path }"
           >
-            <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
+            <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
               <b class="filme-titulo">{{ filme.title }}</b>
               <img
                 v-if="filme.poster_path"
@@ -63,7 +64,7 @@
         :key="index"
         :class="{ ativo: filme.poster_path }"
       >
-        <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
+        <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
           <b class="filme-titulo">{{ filme.title }}</b>
           <img
             v-if="filme.poster_path"
@@ -88,6 +89,20 @@ export default {
   props: ["listaFilmes", "carousel"],
   components: {
     carousel,
+  },
+  computed: {
+    path() {
+      return this.$router.path;
+    },
+    nomeLink() {
+      let nome = "";
+      if (this.path === "/movie") {
+        nome = "filmes";
+      } else {
+        nome = "series";
+      }
+      return nome;
+    },
   },
 };
 </script>
