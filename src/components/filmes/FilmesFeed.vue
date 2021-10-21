@@ -27,9 +27,22 @@
             <li>
               <input
                 type="radio"
-                id="elenco"
+                id="series"
                 name="conteudo"
                 :value="2"
+                v-model="conteudo"
+                checked
+              />
+              <label for="series"
+                >Séries ({{ seriesBuscadas.total_results }})</label
+              >
+            </li>
+            <li>
+              <input
+                type="radio"
+                id="elenco"
+                name="conteudo"
+                :value="3"
                 v-model="conteudo"
                 checked
               />
@@ -47,7 +60,7 @@
               :key="index"
               :class="{ ativo: filme.poster_path }"
             >
-              <router-link :to="{ name: 'filmes', params: { id: filme.id } }">
+              <router-link :to="{ name: 'movie', params: { id: filme.id } }">
                 <b class="filme-titulo">{{ filme.title }}</b>
                 <img
                   v-if="filme.poster_path"
@@ -61,6 +74,31 @@
             </div>
           </div>
           <div v-else-if="conteudo === 2">
+            <div
+              class="filmes-container"
+              v-if="seriesBuscadas && conteudo === 2"
+            >
+              <div
+                class="filme"
+                v-for="(serie, index) in seriesBuscadas.results"
+                :key="index"
+                :class="{ ativo: serie.poster_path }"
+              >
+                <router-link :to="{ name: 'tv', params: { id: serie.id } }">
+                  <b class="filme-titulo">{{ serie.name }}</b>
+                  <img
+                    v-if="serie.poster_path"
+                    :src="serie.poster_path | filmeImagem"
+                    :alt="serie.title"
+                  />
+                  <p v-if="serie.release_date" class="filme-data">
+                    {{ serie.release_date.slice(0, 4) }}
+                  </p>
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="conteudo === 3">
             <ElencoFeed />
           </div>
         </transition>
@@ -104,6 +142,9 @@ export default {
     filmesBuscados() {
       return this.$store.state.filmesBuscados;
     },
+    seriesBuscadas() {
+      return this.$store.state.seriesBuscadas;
+    },
     elencoBuscado() {
       return this.$store.state.elencoBuscado;
     },
@@ -112,12 +153,15 @@ export default {
     url() {
       this.$store.commit("UPDATE_FILMES_BUSCADOS", null);
       this.$store.dispatch("getFilmesBuscados", this.url);
+      this.$store.commit("UPDATE_SERIES_BUSCADOS", null);
+      this.$store.dispatch("getSeriesBuscadas", this.url);
       this.$store.commit("UPDATE_ELENCO_BUSCADO", null);
       this.$store.dispatch("getElencoBuscado", this.url);
     },
   },
   created() {
     this.$store.dispatch("getFilmesBuscados", this.url);
+    this.$store.dispatch("getSeriesBuscadas", this.url);
     this.$store.dispatch("getElencoBuscado", this.url);
   },
 };

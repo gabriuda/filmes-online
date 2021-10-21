@@ -59,13 +59,13 @@ const routes = [
   },
   {
     path: "/movie/:id",
-    name: "filmes",
+    name: "movie",
     component: Filme,
     props: true,
   },
   {
     path: "/tv/:id",
-    name: "series",
+    name: "tv",
     component: Serie,
     props: true,
   },

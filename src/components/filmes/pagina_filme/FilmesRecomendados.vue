@@ -5,6 +5,7 @@
       v-if="listaRecomendados"
       :listaFilmes="listaRecomendados"
       :carousel="true"
+      :nomeLink="nomeLink"
     />
     <p v-else>Nenhuma recomendação</p>
   </section>
@@ -16,7 +17,7 @@ import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {
   name: "FilmesRecomendados",
-  props: ["id"],
+  props: ["id", "nomeLink"],
   data() {
     return {
       listaRecomendados: null,

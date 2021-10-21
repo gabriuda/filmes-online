@@ -9,6 +9,7 @@ export default new Vuex.Store({
     categorias: null,
     filme: null,
     filmesBuscados: null,
+    seriesBuscadas: null,
     elencoBuscado: null,
     filmesPopulares: null,
     filmesDaCategoria: null,
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     UPDATE_FILMES_BUSCADOS(state, payload) {
       state.filmesBuscados = payload;
+    },
+    UPDATE_SERIES_BUSCADAS(state, payload) {
+      state.seriesBuscadas = payload;
     },
     UPDATE_FILMES_POPULARES(state, payload) {
       state.filmesPopulares = payload;
@@ -53,6 +57,13 @@ export default new Vuex.Store({
         .get(`/search/movie?${payload}&api_key=${apiKey}&${language}`)
         .then((response) => {
           context.commit("UPDATE_FILMES_BUSCADOS", response.data);
+        });
+    },
+    getSeriesBuscadas(context, payload) {
+      return tmdbApi
+        .get(`/search/tv?${payload}&api_key=${apiKey}&${language}`)
+        .then((response) => {
+          context.commit("UPDATE_SERIES_BUSCADAS", response.data);
         });
     },
     getElencoBuscado(context, payload) {

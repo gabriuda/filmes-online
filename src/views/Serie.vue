@@ -17,7 +17,7 @@
         </div>
       </section>
 
-      <FilmesRecomendados :id="id" />
+      <FilmesRecomendados :id="id" nomeLink="tv" />
     </section>
     <div v-else>
       <PageLoading />

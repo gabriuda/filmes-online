@@ -5,10 +5,10 @@
     </div>
     <FilmesBuscar />
     <div v-if="filmes">
-      <h2 class="t-feed t-recentes">Mais populares</h2>
-      <FilmesComponente :listaFilmes="filmes.lancamentos" :carousel="true" />
-      <h2 class="t-feed t-recentes">Em Cartaz</h2>
-      <FilmesComponente :listaFilmes="filmes.cartaz" :carousel="true" />
+      <h2 class="t-feed t-recentes">Filmes mais populares</h2>
+      <FilmesPopulares />
+      <h2 class="t-feed t-recentes">Séries mais assistidas</h2>
+      <SeriesPopulares />
       <h2 class="t-feed t-recentes">Bem Avaliados</h2>
       <FilmesComponente :listaFilmes="filmes.top_rated" :carousel="true" />
     </div>
@@ -17,6 +17,8 @@
 
 <script>
 import FilmesBuscar from "@/components/filmes/FilmesBuscar.vue";
+import FilmesPopulares from "@/components/pagina_home/FilmesPopulares.vue";
+import SeriesPopulares from "@/components/pagina_home/SeriesPopulares.vue";
 import FilmesComponente from "@/components/filmes/FilmesComponente.vue";
 import { tmdbApi, apiKey, language } from "@/services/index.js";
 
@@ -25,14 +27,14 @@ export default {
   data() {
     return {
       filmes: {
-        lancamentos: null,
-        cartaz: null,
         top_rated: null,
       },
     };
   },
   components: {
     FilmesBuscar,
+    FilmesPopulares,
+    SeriesPopulares,
     FilmesComponente,
   },
   computed: {
@@ -41,20 +43,6 @@ export default {
     },
   },
   methods: {
-    getLancamentos() {
-      tmdbApi
-        .get(
-          `/discover/movie?sort_by=popularity.desc&api_key=${apiKey}&${language}`
-        )
-        .then((response) => (this.filmes.lancamentos = response.data))
-        .catch(() => {});
-    },
-    getCartaz() {
-      tmdbApi
-        .get(`/movie/now_playing?api_key=${apiKey}&${language}`)
-        .then((response) => (this.filmes.cartaz = response.data))
-        .catch(() => {});
-    },
     getBemAvaliados() {
       tmdbApi
         .get(`/movie/top_rated?api_key=${apiKey}&${language}`)
@@ -64,8 +52,6 @@ export default {
   },
   created() {
     document.title = "OnlineFilmes";
-    this.getLancamentos();
-    this.getCartaz();
     this.getBemAvaliados();
   },
 };

@@ -30,9 +30,6 @@
           <li>
             <router-link to="/tv?page=1">Séries</router-link>
           </li>
-          <li>
-            <router-link to="/animes">Animes</router-link>
-          </li>
           <transition mode="out-in">
             <li class="search-menu-desktop" v-if="isPageToSearch">
               <FilmesBuscar :header="true" />

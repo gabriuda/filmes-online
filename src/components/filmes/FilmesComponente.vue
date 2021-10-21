@@ -21,8 +21,10 @@
           :class="{ ativo: filme.poster_path }"
         >
           <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
-            <b v-if="path !== '/tv'" class="filme-titulo">{{ filme.title }}</b>
-            <b v-else class="filme-titulo">{{ filme.name }}</b>
+            <div class="filme-titulo">
+              <b>{{ filme.title }}</b>
+              <b>{{ filme.name }}</b>
+            </div>
             <img
               v-if="filme.poster_path"
               :src="filme.poster_path | filmeImagem"
@@ -43,7 +45,10 @@
             :class="{ ativo: filme.poster_path }"
           >
             <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
-              <b class="filme-titulo">{{ filme.title }}</b>
+              <div class="filme-titulo">
+                <b>{{ filme.title }}</b>
+                <b>{{ filme.name }}</b>
+              </div>
               <img
                 v-if="filme.poster_path"
                 :src="filme.poster_path | filmeImagem"
@@ -65,7 +70,10 @@
         :class="{ ativo: filme.poster_path }"
       >
         <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
-          <b class="filme-titulo">{{ filme.title }}</b>
+          <div class="filme-titulo">
+            <b>{{ filme.title }}</b>
+            <b>{{ filme.name }}</b>
+          </div>
           <img
             v-if="filme.poster_path"
             :src="filme.poster_path | filmeImagem"
@@ -86,23 +94,9 @@ import carousel from "vue-owl-carousel";
 
 export default {
   name: "FilmesComponente",
-  props: ["listaFilmes", "carousel"],
+  props: ["listaFilmes", "nomeLink", "carousel"],
   components: {
     carousel,
-  },
-  computed: {
-    path() {
-      return this.$router.path;
-    },
-    nomeLink() {
-      let nome = "";
-      if (this.path === "/movie") {
-        nome = "filmes";
-      } else {
-        nome = "series";
-      }
-      return nome;
-    },
   },
 };
 </script>
@@ -143,16 +137,20 @@ export default {
   padding: 0 10px 0 10px;
   padding-bottom: 0px;
   background: var(--azul);
+  width: 100%;
   color: var(--branco);
   font-family: "Karla", sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
-  width: 100%;
   text-align: center;
   display: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.filme-titulo b {
+  font-weight: 400;
 }
 
 @keyframes showTitle {
@@ -224,6 +222,8 @@ export default {
   }
   .filme-titulo {
     padding: 5px;
+  }
+  .filme-titulo b {
     font-size: 0.735rem;
   }
   .filme-data {
@@ -242,8 +242,10 @@ export default {
   }
   .filme-data,
   .filme-titulo {
-    font-size: 0.6rem;
     padding: 4px;
+  }
+  .filme-titulo b {
+    font-size: 0.6rem;
   }
 }
 

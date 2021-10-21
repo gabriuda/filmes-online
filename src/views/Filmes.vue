@@ -26,6 +26,17 @@ export default {
     path() {
       return this.$route.path;
     },
+    nomeLink() {
+      let nome = "";
+      let array = [];
+      if (this.path) {
+        nome = String(this.path);
+        array = nome.split("");
+        array.shift();
+        nome = array.join("");
+      }
+      return String(nome);
+    },
   },
 };
 </script>

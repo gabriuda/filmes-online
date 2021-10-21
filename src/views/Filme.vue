@@ -22,7 +22,7 @@
           </div>
         </section>
 
-        <FilmesRecomendados :id="id" />
+        <FilmesRecomendados :id="id" nomeLink="movie" />
       </div>
       <PageLoading v-else />
     </transition>

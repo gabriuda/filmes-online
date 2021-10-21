@@ -1,7 +1,7 @@
 <template>
   <transition mode="out-in">
     <section v-if="data">
-      <FilmesLista :listaFilmes="data.results" />
+      <FilmesLista :listaFilmes="data.results" :nomeLink="nomeLink" />
       <div class="paginacao" v-if="data">
         <FilmesPaginacao :totalFilmes="data.total_pages" />
       </div>
@@ -38,6 +38,17 @@ export default {
     },
     path() {
       return this.$route.path;
+    },
+    nomeLink() {
+      let nome = "";
+      let array = [];
+      if (this.path) {
+        nome = String(this.path);
+        array = nome.split("");
+        array.shift();
+        nome = array.join("");
+      }
+      return String(nome);
     },
     query() {
       return this.$route.query.query;

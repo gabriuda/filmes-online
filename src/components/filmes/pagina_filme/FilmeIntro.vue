@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="coluna-2">
-        <h2 class="filme-titulo">{{ filme.title }}</h2>
+        <h2 class="filme-title">{{ filme.title }}</h2>
         <h3 v-if="filme.tagline" class="tagline">{{ filme.tagline }}</h3>
         <ul class="filme-info">
           <li class="generos">
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style>
-.filme-titulo {
+.filme-title {
   margin-bottom: 20px;
 }
 

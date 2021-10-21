@@ -9,8 +9,10 @@
           :class="{ ativo: filme.poster_path }"
         >
           <router-link :to="{ name: nomeLink, params: { id: filme.id } }">
-            <b v-if="path !== '/tv'" class="filme-titulo">{{ filme.title }}</b>
-            <b v-else class="filme-titulo">{{ filme.name }}</b>
+            <div class="filme-titulo">
+              <b>{{ filme.title }}</b>
+              <b>{{ filme.name }}</b>
+            </div>
             <img
               v-if="filme.poster_path"
               :src="filme.poster_path | filmeImagem"
@@ -35,21 +37,7 @@
 <script>
 export default {
   name: "FilmesLista",
-  props: ["listaFilmes"],
-  computed: {
-    path() {
-      return this.$route.path;
-    },
-    nomeLink() {
-      let nome = "";
-      if (this.path === "/movie") {
-        nome = "filmes";
-      } else {
-        nome = "series";
-      }
-      return nome;
-    },
-  },
+  props: ["listaFilmes", "nomeLink"],
 };
 </script>
 
