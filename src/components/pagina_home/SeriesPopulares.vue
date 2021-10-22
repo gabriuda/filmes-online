@@ -1,6 +1,6 @@
 <template>
   <section v-if="serie">
-    <FilmesComponente :listaFilmes="serie" :carousel="true" />
+    <FilmesComponente :listaFilmes="serie" :carousel="true" nomeLink="tv" />
   </section>
 </template>
 

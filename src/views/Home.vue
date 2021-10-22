@@ -5,9 +5,15 @@
     </div>
     <FilmesBuscar />
     <div v-if="filmes">
-      <h2 class="t-feed t-recentes">Filmes mais populares</h2>
+      <div class="titulo-flex">
+        <h2 class="t-recentes">Filmes mais populares</h2>
+        <router-link :to="{ name: 'Filmes' }" class="btn">Ver mais</router-link>
+      </div>
       <FilmesPopulares />
-      <h2 class="t-feed t-recentes">Séries mais assistidas</h2>
+      <div class="titulo-flex">
+        <h2 class="t-recentes">Séries mais assistidas</h2>
+        <router-link :to="{ name: 'Series' }" class="btn">Ver mais</router-link>
+      </div>
       <SeriesPopulares />
       <h2 class="t-feed t-recentes">Bem Avaliados</h2>
       <FilmesComponente :listaFilmes="filmes.top_rated" :carousel="true" />
@@ -76,5 +82,17 @@ div {
   .logo {
     max-width: 300px;
   }
+}
+
+.titulo-flex {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  border-bottom: 1px solid var(--branco);
+  margin-bottom: 20px;
+}
+
+.t-recentes {
+  margin-bottom: 20px;
 }
 </style>

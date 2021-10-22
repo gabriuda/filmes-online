@@ -76,7 +76,7 @@ h3 {
 }
 
 h1 {
-  font-size: 6rem;
+  font-size: 4.735rem;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--branco);
   line-height: 1;
@@ -198,6 +198,45 @@ main {
   content: " > ";
 }
 
+/* Escolher */
+.escolher {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 20px 0;
+}
+
+.escolher li input {
+  display: none;
+}
+
+.escolher li label {
+  font-family: "Karla", sans-serif;
+  font-size: 0.9rem;
+  display: block;
+  width: 130px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--azul);
+  color: var(--branco);
+  transition: 0.2s;
+  padding: 4px;
+  opacity: 0.75;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.escolher li input:checked ~ label,
+label:hover {
+  opacity: 1;
+  border-color: var(--branco);
+}
+
 /* Botão */
 .btn {
   font-family: "Karla", sans-serif;
@@ -279,6 +318,10 @@ main {
 }
 
 @media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2.535rem;
+    padding-bottom: 16px;
+  }
   h2 {
     font-size: 2rem;
   }

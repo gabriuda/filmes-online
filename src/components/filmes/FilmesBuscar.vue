@@ -13,7 +13,7 @@
     <ul v-if="ativarSugestoes && sugestoes && sugestoes.results.length > 0">
       <li v-for="(filme, index) in sugestoes.results" :key="index">
         <router-link
-          :to="{ name: 'filmes', params: { id: filme.id } }"
+          :to="{ name: 'movie', params: { id: filme.id } }"
           v-if="filme.backdrop_path"
         >
           <p>{{ filme.title }}</p>

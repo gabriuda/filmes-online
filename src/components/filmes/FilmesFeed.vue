@@ -1,6 +1,6 @@
 <template>
   <transition mode="out-in">
-    <section>
+    <section v-if="filmesBuscados && seriesBuscadas && elencoBuscado">
       <div
         v-if="
           (filmesBuscados || elencoBuscado) &&
@@ -189,44 +189,6 @@ p {
   justify-content: space-between;
   gap: 0px 30px;
   margin: 30px 0;
-}
-
-.escolher {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 500px;
-  margin-bottom: 20px;
-}
-
-.escolher li input {
-  display: none;
-}
-
-.escolher li label {
-  font-family: "Karla", sans-serif;
-  font-size: 0.9rem;
-  display: block;
-  width: 130px;
-  height: 40px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--azul);
-  color: var(--branco);
-  transition: 0.2s;
-  padding: 4px;
-  opacity: 0.75;
-  cursor: pointer;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.escolher li input:checked ~ label,
-label:hover {
-  opacity: 1;
-  border-color: var(--branco);
 }
 
 @media screen and (max-width: 549px) {

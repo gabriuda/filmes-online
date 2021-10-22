@@ -1,6 +1,6 @@
 <template>
-  <transition mode="out-in" v-if="carousel && listaFilmes">
-    <div v-if="carousel && listaFilmes">
+  <div v-if="listaFilmes">
+    <div v-if="carousel">
       <carousel
         :responsive="{
           1000: { items: 5 },
@@ -62,7 +62,7 @@
         </ul>
       </div>
     </div>
-    <div class="filmes-container" v-else-if="!carousel && listaFilmes">
+    <div class="filmes-container" v-else>
       <div
         class="filme"
         v-for="(filme, index) in listaFilmes.results"
@@ -85,8 +85,7 @@
         </router-link>
       </div>
     </div>
-    <PageLoading v-else />
-  </transition>
+  </div>
 </template>
 
 <script>
