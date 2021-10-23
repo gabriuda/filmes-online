@@ -9,7 +9,7 @@ import FilmesComponente from "@/components/filmes/FilmesComponente.vue";
 import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {
-  name: "FilmesPopulares",
+  name: "FilmesCartaz",
   data() {
     return {
       filmes: null,
@@ -19,15 +19,15 @@ export default {
     FilmesComponente,
   },
   methods: {
-    getFilmesPopulares() {
+    getFilmesCartaz() {
       tmdbApi
-        .get(`/movie/popular?api_key=${apiKey}&${language}`)
+        .get(`/movie/upcoming?api_key=${apiKey}&${language}`)
         .then((response) => (this.filmes = response.data))
         .catch(() => {});
     },
   },
   created() {
-    this.getFilmesPopulares();
+    this.getFilmesCartaz();
   },
 };
 </script>

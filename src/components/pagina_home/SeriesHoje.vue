@@ -1,6 +1,6 @@
 <template>
-  <section v-if="filmes">
-    <FilmesComponente :listaFilmes="filmes" :carousel="true" nomeLink="movie" />
+  <section v-if="serie">
+    <FilmesComponente :listaFilmes="serie" :carousel="true" nomeLink="tv" />
   </section>
 </template>
 
@@ -9,25 +9,25 @@ import FilmesComponente from "@/components/filmes/FilmesComponente.vue";
 import { tmdbApi, apiKey, language } from "@/services/index.js";
 
 export default {
-  name: "FilmesPopulares",
+  name: "SeriesHoje",
   data() {
     return {
-      filmes: null,
+      serie: null,
     };
   },
   components: {
     FilmesComponente,
   },
   methods: {
-    getFilmesPopulares() {
+    getSeriesHoje() {
       tmdbApi
-        .get(`/movie/popular?api_key=${apiKey}&${language}`)
-        .then((response) => (this.filmes = response.data))
+        .get(`/tv/airing_today?api_key=${apiKey}&${language}`)
+        .then((response) => (this.serie = response.data))
         .catch(() => {});
     },
   },
   created() {
-    this.getFilmesPopulares();
+    this.getSeriesHoje();
   },
 };
 </script>

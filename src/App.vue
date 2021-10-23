@@ -120,7 +120,7 @@ span {
 }
 
 main {
-  padding-top: 130px;
+  padding-top: 100px;
   flex: 1;
 }
 
@@ -284,6 +284,16 @@ label:hover {
 }
 .v-enter-active,
 .v-leave-active {
+  transition: all 0.3s;
+}
+
+.troca-enter,
+.troca-leave-to {
+  opacity: 0;
+}
+
+.troca-enter-active,
+.troca-leave-active {
   transition: all 0.3s;
 }
 
