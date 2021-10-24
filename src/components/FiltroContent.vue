@@ -32,10 +32,8 @@ export default {
   },
   methods: {
     getCategorias() {
-      console.log(this.$route.query.with_genres);
-
       tmdbApi
-        .get(`/genre/movie/list?api_key=${apiKey}&${language}`)
+        .get(`/genre/${this.type}/list?api_key=${apiKey}&${language}`)
         .then((response) => {
           this.categorias = response.data;
         });

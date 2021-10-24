@@ -28,13 +28,6 @@ export default {
     },
   },
 };
-
-// Terminar pesquisar = com series e filmes
-// Terminar filtro
-// Fazer pagina de série
-// Fazer link dos generos ir pra pagina de categorias com series
-// // Início > Séries > Categorias > [Categoria]
-// Página do ator ou atriz que inclui as séries feitas
 </script>
 
 <style>

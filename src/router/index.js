@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Pesquisa from "../views/Pesquisa.vue";
 import Filmes from "../views/Filmes.vue";
 import Series from "../views/Series.vue";
+import Animes from "../views/Animes.vue";
 import Categorias from "../views/Categorias.vue";
 import Categoria from "../views/Categoria.vue";
 import Filme from "../views/Filme.vue";
@@ -40,6 +41,11 @@ const routes = [
     path: "/tv",
     name: "Series",
     component: Series,
+  },
+  {
+    path: "/anime",
+    name: "Animes",
+    component: Animes,
   },
   {
     path: "/populares",
